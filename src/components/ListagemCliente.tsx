@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-
+import NavBar from './NavBar';
 import styles from "../App.module.css";
+import "../components/style.css"
 import { ClienteInterface } from '../interfaces/ClienteInterface';
 
 
@@ -51,8 +52,8 @@ const ListagemCliente = () => {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
                 //if (true == response.data.status) {
-                    setClientes(response.data.data)
-                
+                setClientes(response.data.data)
+
             } catch (error) {
                 setError("Ocorreu um erro");
                 console.log(error);
@@ -65,6 +66,7 @@ const ListagemCliente = () => {
 
     return (
         <div>
+            <NavBar />
             <main className={styles.main}>
                 <div className='container mw-100 w-auto'>
 
@@ -80,9 +82,11 @@ const ListagemCliente = () => {
                                             onChange={handleState} />
 
                                     </div>
-                                    <div className='col-1'>
-                                        <button type='submit' className='btn btn-success'>Pesquisar</button>
-                                    </div>
+
+                                    <button className='col-1'>
+                                        Pesquisar
+                                    </button>
+
 
                                 </form>
                             </div>
