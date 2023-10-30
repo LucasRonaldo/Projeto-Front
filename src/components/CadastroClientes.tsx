@@ -1,18 +1,24 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-
 import styles from '../App.module.css'
+import NavBar from './NavBar';
+
+
+
+
 //footer
 //header
 import axios from 'axios';
 
 const CadastroCliente = () => {
 
+
+
     const [nome, setNome] = useState<string>("");
     const [celular, setCelular] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [cpf, setCpf] = useState<string>("");
     const [dataNascimento, setDataNascimento] = useState<string>("");
-    const [localidade, setLocalidade] = useState<string>("");
+    const [cidade, setCidade] = useState<string>("");
     const [estado, setEstado] = useState<string>("");
     const [pais, setPais] = useState<string>("");
     const [rua, setRua] = useState<string>("");
@@ -31,7 +37,7 @@ const CadastroCliente = () => {
             email: email,
             cpf: cpf,
             dataNascimento: dataNascimento,
-            localidade: localidade,
+            cidade: cidade,
             estado: estado,
             celular: celular,
             pais: pais,
@@ -73,7 +79,7 @@ const CadastroCliente = () => {
                 data => {
                     console.log(data);
 
-                    setLocalidade(data.localidade);
+                    setCidade(data.localidade);
 
                     // setCep(data.cep);
                     setEstado(data.uf);
@@ -84,12 +90,7 @@ const CadastroCliente = () => {
 
 
     }
-    const submitForm = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name = "cep") {
-            setCep(e.target.value);
-        }
 
-    }
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "nome") {
@@ -99,15 +100,15 @@ const CadastroCliente = () => {
             setEmail(e.target.value);
         }
         if (e.target.name === "cpf") {
-            
-                setCpf(e.target.value);
-           
+
+            setCpf(e.target.value);
+
         }
         if (e.target.name === "dataNascimento") {
             setDataNascimento(e.target.value);
         }
-        if (e.target.name === "localidade") {
-            setLocalidade(e.target.value);
+        if (e.target.name === "cidade") {
+            setCidade(e.target.value);
         }
         if (e.target.name === "estado") {
             setEstado(e.target.value);
@@ -139,45 +140,10 @@ const CadastroCliente = () => {
     }
     return (
         <div>
-
-
-                
-            <nav className="navbar navbar-expand-lg navbar-light bg-info">
-  <div className="container-fluid">
-    <a className="navbar-brand" href="#">Estilo e Lamina</a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-        <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Link</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a className="dropdown-item" href="#">Action</a></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
-            
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      
-    </div>
-  </div>
-</nav>
-<main className={styles.main}>
+           <NavBar/>
+            <main className={styles.main}>
                 <div className='container'>
-                    
+
                     <div className='card'>
                         <div className='card-body'>
                             <h5 className='card-title'>Cadastrar Clientes</h5>
@@ -185,9 +151,10 @@ const CadastroCliente = () => {
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
                                     <input type="text" name='nome' className='form-control' required onChange={handleState} />
+
                                 </div>
                                 <div className='col-6'>
-                                    <label htmlFor="email" className='form-label' >E-mail</label>
+                                    <label htmlFor="email" className='form-label ' >E-mail</label>
                                     <input type="email" name='email' className='form-control' required onChange={handleState} />
 
                                 </div>
@@ -212,7 +179,7 @@ const CadastroCliente = () => {
 
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Cidade</label>
-                                    <input type="text" value={localidade} id='localidade' name='localidade' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={cidade} name='cidade' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Celular</label>

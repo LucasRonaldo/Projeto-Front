@@ -2,18 +2,18 @@ import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 import styles from "../App.module.css";
-import { CadastroClienteInterface } from '../interfaces/ClienteInterface';
+import { ClienteInterface } from '../interfaces/ClienteInterface';
 
 
 const ListagemCliente = () => {
 
-    const [clientes, setClientes] = useState<CadastroClienteInterface[]>([]);
+    const [clientes, setClientes] = useState<ClienteInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
 
-        const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-            if (e.target.name === "pesquisa") {
+    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === "pesquisa") {
             setPesquisa(e.target.value);
         }
     }
@@ -32,14 +32,15 @@ const ListagemCliente = () => {
                         }
                     }
                 ).then(function (response) {
-                    if(true == response.data.status){
-                        setClientes(response.data.data)
+                    if (true == response.data.status) {
+                        setClientes(response.data.data);
                     }
                 }).catch(function (error) {
                     console.log(error)
                 });
 
             } catch (error) {
+                setError("Ocorreu um erro")
                 console.log(error);
             }
         }
@@ -49,9 +50,9 @@ const ListagemCliente = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
-                if(true == response.data.status){
+                //if (true == response.data.status) {
                     setClientes(response.data.data)
-                }
+                
             } catch (error) {
                 setError("Ocorreu um erro");
                 console.log(error);
@@ -61,11 +62,11 @@ const ListagemCliente = () => {
         fetchData();
     }, []);
 
-    
+
     return (
         <div>
             <main className={styles.main}>
-                <div className='container'>
+                <div className='container mw-100 w-auto'>
 
                     <div className='col-md mb-3'>
                         <div className='card'>
@@ -90,13 +91,13 @@ const ListagemCliente = () => {
                     <div className='card'>
                         <div className='card-body'>
                             <h5 className='card-title'> Listagem de Clientes</h5>
-                            <table className='table table-hover'>
+                            <table className='table table-hover '>
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>CPF</th>
                                         <th>E-mail</th>
+                                        <th>CPF</th>
                                         <th>Data de Nascimento</th>
                                         <th>Cidade</th>
                                         <th>Estado</th>
@@ -107,9 +108,9 @@ const ListagemCliente = () => {
                                         <th>bairro</th>
                                         <th>cep</th>
                                         <th>Complemento</th>
-                                        
-                                        
-                                        
+
+
+
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -130,8 +131,8 @@ const ListagemCliente = () => {
                                             <td>{cliente.bairro}</td>
                                             <td>{cliente.cep}</td>
                                             <td>{cliente.complemento}</td>
-                                            
-                                            
+
+
                                             <td>
                                                 <a href="#" className='btn btn-primary btn-sm'>Editar</a>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
