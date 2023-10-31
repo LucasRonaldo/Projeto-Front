@@ -1,16 +1,17 @@
 import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import NavBar from './NavBar';
+
 import styles from "../App.module.css";
-import "../components/style.css"
-import { ClienteInterface } from '../interfaces/ClienteInterface';
+import { ServicoInterface } from '../interfaces/ServicoInterface';
+import NavBar from './NavBar';
 
 
-const ListagemCliente = () => {
+const ListagemServico = () => {
 
-    const [clientes, setClientes] = useState<ClienteInterface[]>([]);
+    const [profissionais, setProfissionais] = useState<ServicoInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
+
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "pesquisa") {
@@ -23,7 +24,7 @@ const ListagemCliente = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/Cliente',
+                const response = await axios.post('http://127.0.0.1:8000/api/nome/Profissional',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -33,7 +34,8 @@ const ListagemCliente = () => {
                     }
                 ).then(function (response) {
                     if (true == response.data.status) {
-                        setClientes(response.data.data)
+                        setProfissionais(response.data.data)
+                        console.log(response.data.data)
                     }
                 }).catch(function (error) {
                     console.log(error)
@@ -45,15 +47,14 @@ const ListagemCliente = () => {
         }
         fetchData();
     }
-
-
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
-                setClientes(response.data.data);
+                const response = await axios.get('http://127.0.0.1:8000/api/all/Servico');
+                if (true == response.data.status) {
+                    setProfissionais(response.data.data)
 
-
+                }
             } catch (error) {
                 setError("Ocorreu um erro");
                 console.log(error);
@@ -63,11 +64,12 @@ const ListagemCliente = () => {
         fetchData();
     }, []);
 
+
     return (
         <div>
             <NavBar />
             <main className={styles.main}>
-                <div className='container mw-100 w-auto'>
+                <div className='container  wm-100 w-auto'>
 
                     <div className='col-md mb-3'>
                         <div className='card'>
@@ -81,11 +83,9 @@ const ListagemCliente = () => {
                                             onChange={handleState} />
 
                                     </div>
-
-                                    <button type='submit' className='col-1'>
-                                        Pesquisar
-                                    </button>
-
+                                    <div className='col-1'>
+                                        <button type='submit' className='btn btn-success'>Pesquisar</button>
+                                    </div>
 
                                 </form>
                             </div>
@@ -93,24 +93,16 @@ const ListagemCliente = () => {
                     </div>
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='card-title'> Listagem de Clientes</h5>
-                            <table className='table table-hover '>
+                            <h5 className='card-title'> Listagem de Profissionais</h5>
+                            <table className='table table-hover'>
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Nome</th>
-                                        <th>E-mail</th>
-                                        <th>CPF</th>
-                                        <th>Data de Nascimento</th>
-                                        <th>Cidade</th>
-                                        <th>Estado</th>
-                                        <th>celular</th>
-                                        <th>pais</th>
-                                        <th>rua</th>
-                                        <th>numero</th>
-                                        <th>bairro</th>
-                                        <th>cep</th>
-                                        <th>Complemento</th>
+                                        <th>Descrição</th>
+                                        <th>Duração</th>
+                                        <th>Preço</th>
+                                        
 
 
 
@@ -118,23 +110,14 @@ const ListagemCliente = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {clientes.map(cliente => (
-                                        <tr key={cliente.id}>
-                                            <td>{cliente.id}</td>
-                                            <td>{cliente.nome}</td>
-                                            <td>{cliente.email}</td>
-                                            <td>{cliente.cpf}</td>
-                                            <td>{cliente.dataNascimento}</td>
-                                            <td>{cliente.cidade}</td>
-                                            <td>{cliente.estado}</td>
-                                            <td>{cliente.celular}</td>
-                                            <td>{cliente.pais}</td>
-                                            <td>{cliente.rua}</td>
-                                            <td>{cliente.numero}</td>
-                                            <td>{cliente.bairro}</td>
-                                            <td>{cliente.cep}</td>
-                                            <td>{cliente.complemento}</td>
-
+                                    {profissionais.map(Profissional => (
+                                        <tr key={Profissional.id}>
+                                            <td>{Profissional.id}</td>
+                                            <td>{Profissional.nome}</td>
+                                            <td>{Profissional.descricao}</td>
+                                            <td>{Profissional.duracao}</td>
+                                            <td>{Profissional.preco}</td>
+                                            
 
                                             <td>
                                                 <a href="#" className='btn btn-primary btn-sm'>Editar</a>
@@ -152,4 +135,4 @@ const ListagemCliente = () => {
         </div>
     );
 }
-export default ListagemCliente;
+export default ListagemServico;

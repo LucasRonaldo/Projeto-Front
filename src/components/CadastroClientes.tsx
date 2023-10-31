@@ -1,6 +1,9 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import styles from '../App.module.css'
+import '../components/style.css'
 import NavBar from './NavBar';
+
+import './script'
 
 
 
@@ -27,6 +30,17 @@ const CadastroCliente = () => {
     const [cep, setCep] = useState<string>("");
     const [complemento, setComplemento] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
+    function envia() {
+        
+        if(nome.length < 5 ) {
+            alert("Este campo deve conter no minimo 5 caractéres");
+        }
+        else if (nome.length > 120){
+            alert("Este campo deve conter no maximo 120 caractéres");
+        }
+         
+    }
 
     const cadastrarCliente = (e: FormEvent) => {
         e.preventDefault();
@@ -140,7 +154,7 @@ const CadastroCliente = () => {
     }
     return (
         <div>
-           <NavBar/>
+            <NavBar />
             <main className={styles.main}>
                 <div className='container'>
 
@@ -150,7 +164,7 @@ const CadastroCliente = () => {
                             <form onSubmit={cadastrarCliente} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
-                                    <input type="text" name='nome' className='form-control' required onChange={handleState} />
+                                    <input type="text" name='nome' id='nome' onBlur={envia}className='form-control' required onChange={handleState} />
 
                                 </div>
                                 <div className='col-6'>
@@ -209,8 +223,24 @@ const CadastroCliente = () => {
                                     <label htmlFor="password" className='form-label'>Senha</label>
                                     <input type="password" name='password' className='form-control' required onChange={handleState} />
                                 </div>
-                                <div className='col-12'>
-                                    <button type='submit' className='btn btn-success btn-sm'>Cadastrar</button>
+                                <div className='col-12 '>
+                                    <button type='submit' className="cssbuttons-io-button centralizar " >
+                                       Cadastrar
+                                        <div className="icon">
+                                            <svg
+                                                height="24"
+                                                width="24"
+                                                viewBox="0 0 24 24"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                                    fill="currentColor"
+                                                ></path>
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
                             </form>
                         </div>

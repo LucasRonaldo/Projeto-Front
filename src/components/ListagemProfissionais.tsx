@@ -3,17 +3,18 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 
 import styles from "../App.module.css";
 import { ProfissionalInterface } from '../interfaces/ProfissionalInterface';
+import NavBar from './NavBar';
 
 
 const ListagemProfissional = () => {
 
-    const [Profissionais, setProfissionais] = useState<ProfissionalInterface[]>([]);
+    const [profissionais, setProfissionais] = useState<ProfissionalInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
 
-        const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-            if (e.target.name === "pesquisa") {
+    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === "pesquisa") {
             setPesquisa(e.target.value);
         }
     }
@@ -32,8 +33,9 @@ const ListagemProfissional = () => {
                         }
                     }
                 ).then(function (response) {
-                    if(true == response.data.status){
+                    if (true == response.data.status) {
                         setProfissionais(response.data.data)
+                        console.log(response.data.data)
                     }
                 }).catch(function (error) {
                     console.log(error)
@@ -49,8 +51,9 @@ const ListagemProfissional = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Profissional');
-                if(true == response.data.status){
+                if (true == response.data.status) {
                     setProfissionais(response.data.data)
+
                 }
             } catch (error) {
                 setError("Ocorreu um erro");
@@ -61,11 +64,12 @@ const ListagemProfissional = () => {
         fetchData();
     }, []);
 
-    
+
     return (
         <div>
+            <NavBar />
             <main className={styles.main}>
-                <div className='container'>
+                <div className='container  wm-100 w-auto'>
 
                     <div className='col-md mb-3'>
                         <div className='card'>
@@ -108,14 +112,14 @@ const ListagemProfissional = () => {
                                         <th>cep</th>
                                         <th>Salario</th>
                                         <th>Complemento</th>
-                                        
-                                        
-                                        
+
+
+
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {Profissionais.map(Profissional => (
+                                    {profissionais.map(Profissional => (
                                         <tr key={Profissional.id}>
                                             <td>{Profissional.id}</td>
                                             <td>{Profissional.nome}</td>
@@ -132,8 +136,8 @@ const ListagemProfissional = () => {
                                             <td>{Profissional.cep}</td>
                                             <td>{Profissional.salario}</td>
                                             <td>{Profissional.complemento}</td>
-                                            
-                                            
+
+
                                             <td>
                                                 <a href="#" className='btn btn-primary btn-sm'>Editar</a>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
