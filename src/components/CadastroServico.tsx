@@ -101,7 +101,7 @@ return (
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Duração</label>
-                                    <input type="text" name='curacao' className='form-control' required  onChange={handleState}/>
+                                    <input type="text" name='duracao' className='form-control' required  onChange={handleState}/>
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Preço</label>
