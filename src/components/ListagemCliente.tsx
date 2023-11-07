@@ -2,8 +2,9 @@ import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import NavBar from './NavBar';
 import styles from "../App.module.css";
-import "../components/style.css"
+
 import { ClienteInterface } from '../interfaces/ClienteInterface';
+import { Link } from 'react-router-dom';
 
 
 const ListagemCliente = () => {
@@ -82,9 +83,9 @@ const ListagemCliente = () => {
 
                                     </div>
 
-                                    <button type='submit' className='col-1'>
-                                        Pesquisar
-                                    </button>
+                                    <div className='col-1'>
+                                        <button type='submit' className='btn btn-success'>Pesquisar</button>
+                                    </div>
 
 
                                 </form>
@@ -137,7 +138,7 @@ const ListagemCliente = () => {
 
 
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                            <Link to={"/editar/" + cliente.id}  className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>

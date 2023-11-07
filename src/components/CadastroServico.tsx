@@ -4,6 +4,8 @@ import styles from '../App.module.css'
 //footer
 //header
 import axios from 'axios';
+import NavBar from './NavBar';
+import Swal from 'sweetalert2';
 
 const CadastroServico = () => {
 
@@ -25,7 +27,7 @@ const CadastroServico = () => {
 
         }
 
-        axios.post('http://127.0.0.1:8000/api/cadastrar/Profissional',
+        axios.post('http://127.0.0.1:8000/api/cadastrar/Servico',
         dados,
         {
             headers:{
@@ -34,9 +36,31 @@ const CadastroServico = () => {
             }
         }
         ).then(function(response){
-            window.location.href = "/listagem/Servico"
+            if(response.data.status == true){
+
+                 Swal.fire({
+                    title: "Cadastrado",
+                    text: "O cliente foi cadastrado com sucesso",
+                    icon: "success",
+                    timer: 6000,
+                    showConfirmButton: false
+                });
+               
+                window.setTimeout(() => {
+                    window.location.href = "/listagem/Cliente";
+                 }, 3600);
+            }
+            
+           
         }).catch(function(error){
             console.log(error)
+            Swal.fire({
+                title: "Erro",
+                text: "O cliente não foi cadastrado!",
+                icon: "error",
+                timer: 3000,
+                showConfirmButton: false
+            });
         });
 }
 
@@ -44,13 +68,13 @@ const handleState = (e: ChangeEvent <HTMLInputElement>)=>{
     if(e.target.name === "nome"){
         setNome(e.target.value);
     }
-    if(e.target.name === "email"){
+    if(e.target.name === "descricao"){
         setDescricao(e.target.value);
     }
-    if(e.target.name === "cpf"){
+    if(e.target.name === "duracao"){
         setDuracao(e.target.value);
     } 
-    if(e.target.name === "dataNascimento"){
+    if(e.target.name === "preco"){
         setPreco(e.target.value);
     }
     
@@ -59,7 +83,7 @@ const handleState = (e: ChangeEvent <HTMLInputElement>)=>{
 
 return (
     <div>
-     
+     <NavBar/>
             <main className={styles.main}>
                 <div className='container'>
                     <div className='card'>
@@ -72,7 +96,7 @@ return (
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="email" className='form-label' >Descrição</label>
-                                    <input type="email" name='descricao' className='form-control'required  onChange={handleState}/>
+                                    <input type="text" name='descricao' className='form-control'required  onChange={handleState}/>
                                     
                                 </div>
                                 <div className='col-4'>
@@ -81,7 +105,7 @@ return (
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Preço</label>
-                                    <input type="date" name='preco' className='form-control' required  onChange={handleState}/>
+                                    <input type="number" name='preco' className='form-control' required  onChange={handleState}/>
                                 </div>
                                 
                                 <div className='col-12'>

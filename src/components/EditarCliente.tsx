@@ -1,15 +1,12 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import styles from '../App.module.css'
-import '../components/style.css'
 import NavBar from './NavBar';
-import Swal from 'sweetalert2';
+import styles from '../App.module.css'
 
-//footer
-//header
+import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const CadastroCliente = () => {
-
+const EditarCliente = () => {
 
 
     const [nome, setNome] = useState<string>("");
@@ -25,15 +22,15 @@ const CadastroCliente = () => {
     const [bairro, setBairro] = useState<string>("");
     const [cep, setCep] = useState<string>("");
     const [complemento, setComplemento] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [id, setId] = useState<number>();
 
+    const parametro = useParams();
 
-
-    const cadastrarCliente = (e: FormEvent) => {
+    const atualizarCliente = (e: FormEvent) => {
         e.preventDefault();
 
-
         const dados = {
+            id: id,
             nome: nome,
             email: email,
             cpf: cpf,
@@ -46,158 +43,156 @@ const CadastroCliente = () => {
             numero: numero,
             bairro: bairro,
             cep: cep,
-            complemento: complemento,
-            password: password
+            complemento: complemento
 
         }
 
-        axios.post('http://127.0.0.1:8000/api/cadastrar/Cliente',
+        axios.put('http://127.0.0.1:8000/api/update/Cliente',
             dados,
             {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            }
-        ).then(function (response) {
-            if (response.data.status == true) {
-
+            }).then(function (response) {
                 Swal.fire({
-                    title: "Cadastrado",
-                    text: "O cliente foi cadastrado com sucesso",
+                    title: "Atualizado",
+                    text: "O cliente foi atualizado com sucesso!",
                     icon: "success",
-                    timer: 6000,
+                    timer: 3000,
                     showConfirmButton: false
                 });
-               
                 window.setTimeout(() => {
                     window.location.href = "/listagem/Cliente";
                  }, 3600);
-            }
 
-
-        }).catch(function (error) {
-            console.log(error)
-            Swal.fire({
-                title: "Erro",
-                text: "O cliente não foi cadastrado!",
-                icon: "error",
-                timer: 3000,
-                showConfirmButton: false
+                
+            }).catch(function (error) {
+                console.log(error)
+                Swal.fire({
+                    title: "Erro",
+                    text: "O cliente não foi atualizado!",
+                    icon: "error",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
             });
-        });
+
+
+
     }
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/api/find/Cliente/" + parametro.id);
+                setNome(response.data.data.nome)
+                setEmail(response.data.data.email)
+                setCpf(response.data.data.cpf)
+                setId(response.data.data.id)
+                setDataNascimento(response.data.data.dataNascimento)
+                setCidade(response.data.data.cidade)
+                setEstado(response.data.data.estado)
+                setCelular(response.data.data.celular)
+                setPais(response.data.data.pais)
+                setRua(response.data.data.rua)
+                setNumero(response.data.data.numero)
+                setBairro(response.data.data.bairro)
+                setCep(response.data.data.cep)
+                setComplemento(response.data.data.complemento)
 
-    const findCep = (e: FormEvent) => {
 
-        e.preventDefault();
-
-        fetch('https://viacep.com.br/ws/' + cep + '/json/',
-            {
-                method: 'GET'
+            } catch (error) {
+                console.log("erro ao buscar dados pelo id")
             }
-        ).then(response => response.json())
-            .then(
-                data => {
-                    console.log(data);
-
-                    setCidade(data.localidade);
-
-                    // setCep(data.cep);
-                    setEstado(data.uf);
-
-
-                }
-            )
-
-
-    }
-
-
-    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === "nome") {
-            setNome(e.target.value);
-        }
-        if (e.target.name === "email") {
-            setEmail(e.target.value);
-        }
-        if (e.target.name === "cpf") {
-
-            setCpf(e.target.value);
 
         }
-        if (e.target.name === "dataNascimento") {
-            setDataNascimento(e.target.value);
+        fetchData();
+    }, [])
+
+    
+        const handleState = (e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.name === "nome") {
+                setNome(e.target.value);
+            }
+            if (e.target.name === "email") {
+                setEmail(e.target.value);
+            }
+            if (e.target.name === "cpf") {
+
+                setCpf(e.target.value);
+
+            }
+            if (e.target.name === "dataNascimento") {
+                setDataNascimento(e.target.value);
+            }
+            if (e.target.name === "cidade") {
+                setCidade(e.target.value);
+            }
+            if (e.target.name === "estado") {
+                setEstado(e.target.value);
+            }
+            if (e.target.name === "celular") {
+                setCelular(e.target.value);
+            }
+            if (e.target.name === "pais") {
+                setPais(e.target.value);
+            }
+            if (e.target.name === "rua") {
+                setRua(e.target.value);
+            }
+            if (e.target.name === "numero") {
+                setNumero(e.target.value);
+            }
+            if (e.target.name === "bairro") {
+                setBairro(e.target.value);
+            }
+            if (e.target.name === "cep") {
+                setCep(e.target.value);
+            }
+            if (e.target.name === "complemento") {
+                setComplemento(e.target.value);
+            }
+
         }
-        if (e.target.name === "cidade") {
-            setCidade(e.target.value);
-        }
-        if (e.target.name === "estado") {
-            setEstado(e.target.value);
-        }
-        if (e.target.name === "celular") {
-            setCelular(e.target.value);
-        }
-        if (e.target.name === "pais") {
-            setPais(e.target.value);
-        }
-        if (e.target.name === "rua") {
-            setRua(e.target.value);
-        }
-        if (e.target.name === "numero") {
-            setNumero(e.target.value);
-        }
-        if (e.target.name === "bairro") {
-            setBairro(e.target.value);
-        }
-        if (e.target.name === "cep") {
-            setCep(e.target.value);
-        }
-        if (e.target.name === "complemento") {
-            setComplemento(e.target.value);
-        }
-        if (e.target.name === "password") {
-            setPassword(e.target.value);
-        }
-    }
-    return (
-        <div>
-            <NavBar />
+
+        return (
+            <div>
+            <NavBar/>
             <main className={styles.main}>
                 <div className='container'>
 
                     <div className='card'>
                         <div className='card-body'>
                             <h5 className='card-title'>Cadastrar Clientes</h5>
-                            <form onSubmit={cadastrarCliente} className='row g-3'>
+                            <form onSubmit={atualizarCliente} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
-                                    <input type="text" name='nome' id='nome' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={nome} name='nome' id='nome' className='form-control' required onChange={handleState} />
 
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="email" className='form-label ' >E-mail</label>
-                                    <input type="email" name='email' className='form-control' required onChange={handleState} />
+                                    <input type="email" value={email} name='email' className='form-control' required onChange={handleState} />
 
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>CPF</label>
-                                    <input type="text" name='cpf' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={cpf} name='cpf' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Data de Nascimento</label>
-                                    <input type="date" name='dataNascimento' className='form-control' required onChange={handleState} />
+                                    <input type="date" value={dataNascimento} name='dataNascimento' className='form-control' required onChange={handleState} />
                                 </div>
 
 
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Cep</label>
-                                    <input type="text" name='cep' className='form-control' required onBlur={findCep} onChange={handleState} />
+                                    <input type="text" value={cep} name='cep' className='form-control' required  onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Estado</label>
-                                    <input type="text" name='estado' value={estado} className='form-control' required onChange={handleState} />
+                                    <input type="text"  name='estado' value={estado} className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-4'>
@@ -206,35 +201,32 @@ const CadastroCliente = () => {
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Celular</label>
-                                    <input type="text" name='celular' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={celular} name='celular' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Pais</label>
-                                    <input type="text" name='pais' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={pais} name='pais' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Rua</label>
-                                    <input type="text" name='rua' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={rua} name='rua' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Numero</label>
-                                    <input type="text" name='numero' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={numero} name='numero' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Bairro</label>
-                                    <input type="text" name='bairro' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={bairro} name='bairro' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Complemento</label>
-                                    <input type="text" name='complemento' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={complemento} name='complemento' className='form-control' required onChange={handleState} />
                                 </div>
-                                <div className='col-4'>
-                                    <label htmlFor="password" className='form-label'>Senha</label>
-                                    <input type="password" name='password' className='form-control' required onChange={handleState} />
-                                </div>
+                                
                                 <div className='col-12 '>
                                     <button type='submit' className="cssbuttons-io-button centralizar " >
-                                        Cadastrar
+                                        Atualizar
                                         <div className="icon">
                                             <svg
                                                 height="24"
@@ -258,8 +250,6 @@ const CadastroCliente = () => {
             </main>
 
         </div>
-    )
-}
-
-export default CadastroCliente;
-
+        )
+    }
+    export default EditarCliente;
