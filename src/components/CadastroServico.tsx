@@ -47,20 +47,24 @@ const CadastroServico = () => {
                 });
                
                 window.setTimeout(() => {
-                    window.location.href = "/listagem/Cliente";
+                    window.location.href = "/listagem/Servico";
                  }, 3600);
+            }
+            else{
+               
+                Swal.fire({
+                    title: "Erro",
+                    text: "O cliente não foi cadastrado!",
+                    icon: "error",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
             }
             
            
         }).catch(function(error){
             console.log(error)
-            Swal.fire({
-                title: "Erro",
-                text: "O cliente não foi cadastrado!",
-                icon: "error",
-                timer: 3000,
-                showConfirmButton: false
-            });
+           
         });
 }
 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import NavBar from './NavBar';
 import styles from "../App.module.css";
+import Swal from 'sweetalert2';
 
 import { ClienteInterface } from '../interfaces/ClienteInterface';
 import { Link } from 'react-router-dom';
@@ -36,6 +37,7 @@ const ListagemCliente = () => {
                     if (true == response.data.status) {
                         setClientes(response.data.data)
                     }
+                    
                 }).catch(function (error) {
                     console.log(error)
                 });
@@ -52,7 +54,22 @@ const ListagemCliente = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
-                setClientes(response.data.data);
+                if( response.data.status == true){
+                    setClientes(response.data.data);
+                }
+                else{
+                    
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Não há nenhum registro no sistema",
+                            footer: '<a href="/cadastro/Cliente">Clique aqui para cadastrar</a>'
+                          });
+                    
+                }
+               
+
+
 
 
             } catch (error) {

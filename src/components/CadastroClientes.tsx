@@ -74,17 +74,22 @@ const CadastroCliente = () => {
                     window.location.href = "/listagem/Cliente";
                  }, 3600);
             }
-
-
-        }).catch(function (error) {
-            console.log(error)
-            Swal.fire({
+            else{
+                 Swal.fire({
                 title: "Erro",
                 text: "O cliente não foi cadastrado!",
                 icon: "error",
                 timer: 3000,
                 showConfirmButton: false
             });
+
+            }
+
+
+        }).catch(function (error) {
+            console.log(error)
+            
+           
         });
     }
 
@@ -100,7 +105,7 @@ const CadastroCliente = () => {
         ).then(response => response.json())
             .then(
                 data => {
-                    console.log(data);
+                    
 
                     setCidade(data.localidade);
 

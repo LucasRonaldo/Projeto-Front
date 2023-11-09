@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-
+import Swal from 'sweetalert2';
 import styles from "../App.module.css";
 import { ServicoInterface } from '../interfaces/ServicoInterface';
 import NavBar from './NavBar';
@@ -8,7 +8,7 @@ import NavBar from './NavBar';
 
 const ListagemServico = () => {
 
-    const [profissionais, setProfissionais] = useState<ServicoInterface[]>([]);
+    const [servicos, setServicos] = useState<ServicoInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
@@ -24,7 +24,7 @@ const ListagemServico = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/Profissional',
+                const response = await axios.post('http://127.0.0.1:8000/api/nome/Servico',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -33,9 +33,18 @@ const ListagemServico = () => {
                         }
                     }
                 ).then(function (response) {
-                    if (true == response.data.status) {
-                        setProfissionais(response.data.data)
-                        console.log(response.data.data)
+                    if( response.data.status == true){
+                        setServicos(response.data.data);
+                    }
+                    else{
+                        
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Não há nenhum registro no sistema",
+                                footer: '<a href="/cadastro/Servico">Clique aqui para cadastrar</a>'
+                              });
+                        
                     }
                 }).catch(function (error) {
                     console.log(error)
@@ -51,13 +60,25 @@ const ListagemServico = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Servico');
-                if (true == response.data.status) {
-                    setProfissionais(response.data.data)
+                if (true === response.data.status) {
+                    
+                    setServicos(response.data.data)
+                    
+                    
+                }
+                else{
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Não há nenhum registro no sistema",
+                        footer: '<a href="/cadastro/Servico">Clique aqui para cadastrar</a>'
+                      });
 
                 }
             } catch (error) {
                 setError("Ocorreu um erro");
-                console.log(error);
+                
+                
             }
         }
 
@@ -102,22 +123,18 @@ const ListagemServico = () => {
                                         <th>Descrição</th>
                                         <th>Duração</th>
                                         <th>Preço</th>
-                                        
-
-
-
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {profissionais.map(Profissional => (
-                                        <tr key={Profissional.id}>
-                                            <td>{Profissional.id}</td>
-                                            <td>{Profissional.nome}</td>
-                                            <td>{Profissional.descricao}</td>
-                                            <td>{Profissional.duracao}</td>
-                                            <td>{Profissional.preco}</td>
-                                            
+                                    {servicos.map(servicos => (
+                                        <tr key={servicos.id}>
+                                            <td>{servicos.id}</td>
+                                            <td>{servicos.nome}</td>
+                                            <td>{servicos.descricao}</td>
+                                            <td>{servicos.duracao}</td>
+                                            <td>{servicos.preco}</td>
+
 
                                             <td>
                                                 <a href="#" className='btn btn-primary btn-sm'>Editar</a>
@@ -136,3 +153,4 @@ const ListagemServico = () => {
     );
 }
 export default ListagemServico;
+

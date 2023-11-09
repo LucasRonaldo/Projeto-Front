@@ -5,6 +5,7 @@ import styles from '../App.module.css'
 //header
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import NavBar from './NavBar';
 
 const CadastroProfissional = () => {
 
@@ -60,27 +61,30 @@ const CadastroProfissional = () => {
 
                 Swal.fire({
                     title: "Cadastrado",
-                    text: "O cliente foi cadastrado com sucesso",
+                    text: "O profissional foi cadastrado com sucesso",
                     icon: "success",
                     timer: 6000,
                     showConfirmButton: false
                 });
                
                 window.setTimeout(() => {
-                    window.location.href = "/listagem/profissional";
+                    window.location.href = "/listagem/Profissional";
                  }, 3600);
+            }
+            else{
+                Swal.fire({
+                    title: "Erro",
+                    text: "O profissional não foi cadastrado!",
+                    icon: "error",
+                    timer: 3000,
+                    showConfirmButton: false
+                });
             }
 
 
         }).catch(function (error) {
             console.log(error)
-            Swal.fire({
-                title: "Erro",
-                text: "O cliente não foi cadastrado!",
-                icon: "error",
-                timer: 3000,
-                showConfirmButton: false
-            });
+          
         });
     }
 
@@ -159,7 +163,7 @@ const CadastroProfissional = () => {
 
     return (
         <div>
-
+<NavBar/>
             <main className={styles.main}>
                 <div className='container'>
                     <div className='card'>
@@ -223,7 +227,7 @@ const CadastroProfissional = () => {
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="password" className='form-label'>Salario</label>
-                                    <input type="number" name='salario' className='form-control' required onChange={handleState} />
+                                    <input type="number" placeholder='Ex: 2000.00' name='salario' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="password" className='form-label'>Senha</label>

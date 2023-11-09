@@ -55,27 +55,34 @@ const EditarCliente = () => {
                     "Content-Type": "application/json"
                 }
             }).then(function (response) {
-                Swal.fire({
-                    title: "Atualizado",
-                    text: "O cliente foi atualizado com sucesso!",
-                    icon: "success",
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-                window.setTimeout(() => {
-                    window.location.href = "/listagem/Cliente";
-                 }, 3600);
 
+                if(response.data.status == true){
+                    Swal.fire({
+                        title: "Atualizado",
+                        text: "O cliente foi atualizado com sucesso!",
+                        icon: "success",
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                    window.setTimeout(() => {
+                        window.location.href = "/listagem/Cliente";
+                     }, 3600);
+    
+                }
+                else{
+                    Swal.fire({
+                        title: "Erro",
+                        text: "O cliente não foi atualizado!",
+                        icon: "error",
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                }
+               
                 
             }).catch(function (error) {
                 console.log(error)
-                Swal.fire({
-                    title: "Erro",
-                    text: "O cliente não foi atualizado!",
-                    icon: "error",
-                    timer: 3000,
-                    showConfirmButton: false
-                });
+               
             });
 
 

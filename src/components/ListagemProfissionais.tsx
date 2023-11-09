@@ -4,6 +4,7 @@ import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'r
 import styles from "../App.module.css";
 import { ProfissionalInterface } from '../interfaces/ProfissionalInterface';
 import NavBar from './NavBar';
+import Swal from 'sweetalert2';
 
 
 const ListagemProfissional = () => {
@@ -51,10 +52,21 @@ const ListagemProfissional = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Profissional');
-                
-                    setProfissionais(response.data.data)
+                if( response.data.status == true){
+                    setProfissionais(response.data.data);
+                }
+                else{
+                    
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Não há nenhum registro no sistema",
+                            footer: '<a href="/cadastro/Profissional">Clique aqui para cadastrar</a>'
+                          });
+                    
+                }
 
-                
+
             } catch (error) {
                 setError("Ocorreu um erro");
                 console.log(error);
