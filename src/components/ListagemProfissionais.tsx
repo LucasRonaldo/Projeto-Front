@@ -5,6 +5,7 @@ import styles from "../App.module.css";
 import { ProfissionalInterface } from '../interfaces/ProfissionalInterface';
 import NavBar from './NavBar';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 const ListagemProfissional = () => {
@@ -151,7 +152,8 @@ const ListagemProfissional = () => {
 
 
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                                
+                                            <Link to={"/profissional/editar/" + Profissional.id}  className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>

@@ -106,7 +106,7 @@ const CadastroCliente = () => {
             .then(
                 data => {
                     
-
+                    
                     setCidade(data.localidade);
 
                     // setCep(data.cep);

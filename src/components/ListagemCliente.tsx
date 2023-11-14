@@ -81,6 +81,56 @@ const ListagemCliente = () => {
         fetchData();
     }, []);
 
+
+    
+    
+    function handleDelete(id: number){
+        
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: "btn btn-success",
+                  cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+              });
+              swalWithBootstrapButtons.fire({
+                title: "Tem certeza?",
+                text: "Você não poderá reverter isso!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sim, exclua-o!",
+                cancelButtonText: "Não, cancele!",
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Deletado!",
+                    text: "O cliente foi excluido",
+                    icon: "success"
+                  });
+
+                  axios.delete('http://127.0.0.1:8000/api/excluir/cliente/' + id )
+                  .then(function(response){
+                      window.location.href = "/listagem/Cliente"
+                  }).catch(function(error){
+                      console.log("ocorreu um erro")
+                  })
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "O Cliente não foi excluido :)",
+                    icon: "error"
+                  });
+                }
+              });
+        
+        
+
+    }
+
     return (
         <div>
             <NavBar />
@@ -136,6 +186,7 @@ const ListagemCliente = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
                                     {clientes.map(cliente => (
                                         <tr key={cliente.id}>
                                             <td>{cliente.id}</td>
@@ -155,8 +206,8 @@ const ListagemCliente = () => {
 
 
                                             <td>
-                                            <Link to={"/editar/" + cliente.id}  className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            <Link to={"/cliente/editar/" + cliente.id}  className='btn btn-primary btn-sm'>Editar</Link>
+                                                <a onClick={e => handleDelete(cliente.id)} className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>
                                     ))}

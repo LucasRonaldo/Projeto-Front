@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import styles from "../App.module.css";
 import { ServicoInterface } from '../interfaces/ServicoInterface';
 import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
 
 const ListagemServico = () => {
@@ -137,7 +138,7 @@ const ListagemServico = () => {
 
 
                                             <td>
-                                                <a href="#" className='btn btn-primary btn-sm'>Editar</a>
+                                            <Link to={"/servico/editar/" + servicos.id}  className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>
