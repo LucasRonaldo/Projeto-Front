@@ -95,7 +95,7 @@ const EditarProfissional = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/find/Profissional/" + parametro.id);
+                const response = await axios.get("http://127.0.0.1:8000/api/find/profissional/" + parametro.id);
                 setNome(response.data.data.nome)
                 setEmail(response.data.data.email)
                 setCpf(response.data.data.cpf)

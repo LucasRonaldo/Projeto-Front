@@ -77,6 +77,53 @@ const ListagemProfissional = () => {
         fetchData();
     }, []);
 
+    function handleDelete(id: number) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza?",
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, exclua-o!",
+            cancelButtonText: "Não, cancele!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Deletado!",
+                    text: "O cliente foi excluido",
+                    icon: "success"
+                });
+
+                axios.delete('http://127.0.0.1:8000/api/excluir/profissional/' + id)
+                    .then(function (response) {
+                        window.location.href = "/listagem/profissional"
+                    }).catch(function (error) {
+                        console.log("ocorreu um erro")
+                    })
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "O Profissional não foi excluido :)",
+                    icon: "error"
+                });
+            }
+        });
+
+
+
+    }
+
 
     return (
         <div>
@@ -154,7 +201,8 @@ const ListagemProfissional = () => {
                                             <td>
                                                 
                                             <Link to={"/profissional/editar/" + Profissional.id}  className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            <a onClick={e => handleDelete(Profissional.id)} className='btn btn-danger btn-sm'>Excluir</a>
+                                          
                                             </td>
                                         </tr>
                                     ))}

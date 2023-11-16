@@ -25,7 +25,7 @@ const ListagemServico = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/Servico',
+                const response = await axios.post('http://127.0.0.1:8000/api/nome/servico',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -37,16 +37,7 @@ const ListagemServico = () => {
                     if( response.data.status == true){
                         setServicos(response.data.data);
                     }
-                    else{
-                        
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "Não há nenhum registro no sistema",
-                                footer: '<a href="/cadastro/Servico">Clique aqui para cadastrar</a>'
-                              });
-                        
-                    }
+                   
                 }).catch(function (error) {
                     console.log(error)
                 });
@@ -60,7 +51,7 @@ const ListagemServico = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/Servico');
+                const response = await axios.get('http://127.0.0.1:8000/api/all/servico');
                 if (true === response.data.status) {
                     
                     setServicos(response.data.data)
@@ -85,6 +76,53 @@ const ListagemServico = () => {
 
         fetchData();
     }, []);
+
+    function handleDelete(id: number) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza?",
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, exclua-o!",
+            cancelButtonText: "Não, cancele!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Deletado!",
+                    text: "O Serviço foi excluido",
+                    icon: "success"
+                });
+
+                axios.delete('http://127.0.0.1:8000/api/excluir/servico/' + id)
+                    .then(function (response) {
+                        window.location.href = "/listagem/Cliente"
+                    }).catch(function (error) {
+                        console.log("ocorreu um erro")
+                    })
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "O servico não foi excluido :)",
+                    icon: "error"
+                });
+            }
+        });
+
+
+
+    }
 
 
     return (
@@ -139,7 +177,8 @@ const ListagemServico = () => {
 
                                             <td>
                                             <Link to={"/servico/editar/" + servicos.id}  className='btn btn-primary btn-sm'>Editar</Link>
-                                                <a href="#" className='btn btn-danger btn-sm'>Excluir</a>
+                                            <a onClick={e => handleDelete(servicos.id)} className='btn btn-danger btn-sm'>Excluir</a>
+                                          
                                             </td>
                                         </tr>
                                     ))}

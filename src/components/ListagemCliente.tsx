@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 const ListagemCliente = () => {
 
     const [clientes, setClientes] = useState<ClienteInterface[]>([]);
+    const [email, setEmail] = useState<ClienteInterface[]>([]);
     const [pesquisa, setPesquisa] = useState<string>('');
     const [error, setError] = useState("");
 
@@ -18,6 +19,7 @@ const ListagemCliente = () => {
         if (e.target.name === "pesquisa") {
             setPesquisa(e.target.value);
         }
+        
     }
 
     const buscar = (e: FormEvent) => {
@@ -34,10 +36,10 @@ const ListagemCliente = () => {
                         }
                     }
                 ).then(function (response) {
-                    if (true == response.data.status) {
+                    if (true === response.data.status) {
                         setClientes(response.data.data)
                     }
-                    
+
                 }).catch(function (error) {
                     console.log(error)
                 });
@@ -54,20 +56,20 @@ const ListagemCliente = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
-                if( response.data.status == true){
+                if (response.data.status == true) {
                     setClientes(response.data.data);
                 }
-                else{
-                    
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "Não há nenhum registro no sistema",
-                            footer: '<a href="/cadastro/Cliente">Clique aqui para cadastrar</a>'
-                          });
-                    
+                else {
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Não há nenhum registro no sistema",
+                        footer: '<a href="/cadastro/Cliente">Clique aqui para cadastrar</a>'
+                    });
+
                 }
-               
+
 
 
 
@@ -82,52 +84,87 @@ const ListagemCliente = () => {
     }, []);
 
 
-    
-    
-    function handleDelete(id: number){
-        
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                  confirmButton: "btn btn-success",
-                  cancelButton: "btn btn-danger"
-                },
-                buttonsStyling: false
-              });
-              swalWithBootstrapButtons.fire({
-                title: "Tem certeza?",
-                text: "Você não poderá reverter isso!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Sim, exclua-o!",
-                cancelButtonText: "Não, cancele!",
-                reverseButtons: true
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  swalWithBootstrapButtons.fire({
+
+
+
+    function handleDelete(id: number) {
+
+
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Tem certeza?",
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, exclua-o!",
+            cancelButtonText: "Não, cancele!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
                     title: "Deletado!",
                     text: "O cliente foi excluido",
                     icon: "success"
-                  });
+                });
 
-                  axios.delete('http://127.0.0.1:8000/api/excluir/cliente/' + id )
-                  .then(function(response){
-                      window.location.href = "/listagem/Cliente"
-                  }).catch(function(error){
-                      console.log("ocorreu um erro")
-                  })
-                } else if (
-                  /* Read more about handling dismissals below */
-                  result.dismiss === Swal.DismissReason.cancel
-                ) {
-                  swalWithBootstrapButtons.fire({
+                axios.delete('http://127.0.0.1:8000/api/excluir/cliente/' + id)
+                    .then(function (response) {
+                        window.location.href = "/listagem/Cliente"
+                    }).catch(function (error) {
+                        console.log("ocorreu um erro")
+                    })
+            } else if (
+
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
                     title: "Cancelado",
                     text: "O Cliente não foi excluido :)",
                     icon: "error"
-                  });
-                }
-              });
-        
-        
+                });
+            }
+        });
+
+
+
+    }
+
+    
+
+    const recuperarCpf = (e: FormEvent) => {
+
+        async function fetchData() {
+            try {
+                const response = await axios.post('http://127.0.0.1:8000/api/recuperar/senha ',
+                    { nome: email },
+                    {
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        }
+                    }
+                ).then(function (response) {
+                    if (true === response.data.status) {
+                        setClientes(response.data.cpf)
+                        console.log(response.data.cpf)
+                    }
+
+                }).catch(function (error) {
+                    console.log(error)
+                });
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
 
     }
 
@@ -144,6 +181,9 @@ const ListagemCliente = () => {
                                     Pesquisar
                                 </h5>
                                 <form onSubmit={buscar} className='row'>
+
+
+
                                     <div className='col-10'>
                                         <input type="text" name='pesquisa' className='form-control'
                                             onChange={handleState} />
@@ -155,7 +195,11 @@ const ListagemCliente = () => {
                                     </div>
 
 
+
+
                                 </form>
+
+
                             </div>
                         </div>
                     </div>
@@ -186,7 +230,7 @@ const ListagemCliente = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     {clientes.map(cliente => (
                                         <tr key={cliente.id}>
                                             <td>{cliente.id}</td>
@@ -206,7 +250,7 @@ const ListagemCliente = () => {
 
 
                                             <td>
-                                            <Link to={"/cliente/editar/" + cliente.id}  className='btn btn-primary btn-sm'>Editar</Link>
+                                                <Link to={"/cliente/editar/" + cliente.id} className='btn btn-primary btn-sm'>Editar</Link>
                                                 <a onClick={e => handleDelete(cliente.id)} className='btn btn-danger btn-sm'>Excluir</a>
                                             </td>
                                         </tr>
