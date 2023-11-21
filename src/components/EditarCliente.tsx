@@ -56,7 +56,7 @@ const EditarCliente = () => {
                 }
             }).then(function (response) {
 
-                if(response.data.status === true){
+                if (response.data.status === true) {
                     Swal.fire({
                         title: "Atualizado",
                         text: response.data.message,
@@ -66,10 +66,10 @@ const EditarCliente = () => {
                     });
                     window.setTimeout(() => {
                         window.location.href = "/listagem/Cliente";
-                     }, 3600);
-    
+                    }, 3600);
+
                 }
-                else{
+                else {
                     Swal.fire({
                         title: "Erro",
                         text: "O cliente não foi atualizado!",
@@ -78,11 +78,11 @@ const EditarCliente = () => {
                         showConfirmButton: false
                     });
                 }
-               
-                
+
+
             }).catch(function (error) {
                 console.log(error)
-               
+
             });
 
 
@@ -117,55 +117,55 @@ const EditarCliente = () => {
         fetchData();
     }, [])
 
-    
-        const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-            if (e.target.name === "nome") {
-                setNome(e.target.value);
-            }
-            if (e.target.name === "email") {
-                setEmail(e.target.value);
-            }
-            if (e.target.name === "cpf") {
 
-                setCpf(e.target.value);
+    const handleState = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.name === "nome") {
+            setNome(e.target.value);
+        }
+        if (e.target.name === "email") {
+            setEmail(e.target.value);
+        }
+        if (e.target.name === "cpf") {
 
-            }
-            if (e.target.name === "dataNascimento") {
-                setDataNascimento(e.target.value);
-            }
-            if (e.target.name === "cidade") {
-                setCidade(e.target.value);
-            }
-            if (e.target.name === "estado") {
-                setEstado(e.target.value);
-            }
-            if (e.target.name === "celular") {
-                setCelular(e.target.value);
-            }
-            if (e.target.name === "pais") {
-                setPais(e.target.value);
-            }
-            if (e.target.name === "rua") {
-                setRua(e.target.value);
-            }
-            if (e.target.name === "numero") {
-                setNumero(e.target.value);
-            }
-            if (e.target.name === "bairro") {
-                setBairro(e.target.value);
-            }
-            if (e.target.name === "cep") {
-                setCep(e.target.value);
-            }
-            if (e.target.name === "complemento") {
-                setComplemento(e.target.value);
-            }
+            setCpf(e.target.value);
 
         }
+        if (e.target.name === "dataNascimento") {
+            setDataNascimento(e.target.value);
+        }
+        if (e.target.name === "cidade") {
+            setCidade(e.target.value);
+        }
+        if (e.target.name === "estado") {
+            setEstado(e.target.value);
+        }
+        if (e.target.name === "celular") {
+            setCelular(e.target.value);
+        }
+        if (e.target.name === "pais") {
+            setPais(e.target.value);
+        }
+        if (e.target.name === "rua") {
+            setRua(e.target.value);
+        }
+        if (e.target.name === "numero") {
+            setNumero(e.target.value);
+        }
+        if (e.target.name === "bairro") {
+            setBairro(e.target.value);
+        }
+        if (e.target.name === "cep") {
+            setCep(e.target.value);
+        }
+        if (e.target.name === "complemento") {
+            setComplemento(e.target.value);
+        }
 
-        return (
-            <div>
-            <NavBar/>
+    }
+
+    return (
+        <div>
+            <NavBar />
             <main className={styles.main}>
                 <div className='container'>
 
@@ -173,7 +173,7 @@ const EditarCliente = () => {
                         <div className='card-body'>
                             <h4 className='card-title display-6 '>Atualizar Cliente</h4>
                             <hr />
-                            
+
 
                             <form onSubmit={atualizarCliente} className='row g-3'>
                                 <div className='col-6'>
@@ -198,11 +198,11 @@ const EditarCliente = () => {
 
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Cep</label>
-                                    <input type="text" value={cep} name='cep' className='form-control' required  onChange={handleState} />
+                                    <input type="text" value={cep} name='cep' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Estado</label>
-                                    <input type="text"  name='estado' value={estado} className='form-control' required onChange={handleState} />
+                                    <input type="text" name='estado' value={estado} className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-4'>
@@ -233,22 +233,13 @@ const EditarCliente = () => {
                                     <label htmlFor="celular" className='form-label'>Complemento</label>
                                     <input type="text" value={complemento} name='complemento' className='form-control' required onChange={handleState} />
                                 </div>
-                                
+
                                 <div className='col-12 '>
                                     <button type='submit' className="cssbuttons-io-button centralizar " >
                                         Atualizar
                                         <div className="icon">
-                                            <svg
-                                                height="24"
-                                                width="24"
-                                                viewBox="0 0 24 24"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path d="M0 0h24v24H0z" fill="none"></path>
-                                                <path
-                                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                                                    fill="currentColor"
-                                                ></path>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" className="bi bi-pen" viewBox="0 0 16 16">
+                                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
                                             </svg>
                                         </div>
                                     </button>
@@ -260,6 +251,6 @@ const EditarCliente = () => {
             </main>
 
         </div>
-        )
-    }
-    export default EditarCliente;
+    )
+}
+export default EditarCliente;

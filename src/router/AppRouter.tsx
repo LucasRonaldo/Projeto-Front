@@ -18,7 +18,9 @@ import ListagemServico from "../components/ListagemServico";
 import EditarCliente from "../components/EditarCliente";
 import EditarProfissional from "../components/EditarProfissional";
 import EditarServico from "../components/EditarServico";
-import EditarSenha from "../components/EditarSenha";
+import EditarSenha from "../components/EditarSenhaCliente";
+import EditarSenhaProfissional from "../components/EditarSenhaProfissional";
+import EditarSenhaCliente from "../components/EditarSenhaCliente";
 
 
 const AppRouter = () => {
@@ -35,7 +37,9 @@ const AppRouter = () => {
                 <Route path="/cliente/editar/:id" element={<EditarCliente/>} />
                 <Route path="/profissional/editar/:id" element={<EditarProfissional/>} />
                 <Route path="/servico/editar/:id" element={<EditarServico/>} />
-                <Route path="/recuperar/senha/cliente/" element={<EditarSenha/>} />
+                <Route path="/recuperar/senha/cliente/:id" element={<EditarSenhaCliente/>} />
+                <Route path="/recuperar/senha/profissional/:id" element={<EditarSenhaProfissional/>} />
+               
 
             </Routes>
         </BrowserRouter>
