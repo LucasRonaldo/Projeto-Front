@@ -56,10 +56,10 @@ const EditarCliente = () => {
                 }
             }).then(function (response) {
 
-                if(response.data.status == true){
+                if(response.data.status === true){
                     Swal.fire({
                         title: "Atualizado",
-                        text: "O cliente foi atualizado com sucesso!",
+                        text: response.data.message,
                         icon: "success",
                         timer: 3000,
                         showConfirmButton: false
@@ -171,7 +171,10 @@ const EditarCliente = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='card-title'>Cadastrar Clientes</h5>
+                            <h4 className='card-title display-6 '>Atualizar Cliente</h4>
+                            <hr />
+                            
+
                             <form onSubmit={atualizarCliente} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>

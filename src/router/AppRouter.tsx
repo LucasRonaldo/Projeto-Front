@@ -35,7 +35,7 @@ const AppRouter = () => {
                 <Route path="/cliente/editar/:id" element={<EditarCliente/>} />
                 <Route path="/profissional/editar/:id" element={<EditarProfissional/>} />
                 <Route path="/servico/editar/:id" element={<EditarServico/>} />
-                <Route path="/recuper/senha/cliente/" element={<EditarSenha/>} />
+                <Route path="/recuperar/senha/cliente/" element={<EditarSenha/>} />
 
             </Routes>
         </BrowserRouter>
