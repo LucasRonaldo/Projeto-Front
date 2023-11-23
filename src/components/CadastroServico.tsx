@@ -6,6 +6,7 @@ import styles from '../App.module.css'
 import axios from 'axios';
 import NavBar from './NavBar';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const CadastroServico = () => {
 
@@ -110,7 +111,7 @@ const CadastroServico = () => {
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cpf" className='form-label'>Preço</label>
-                                    <input type="number" name='preco' placeholder='Ex: 20.50' className='form-control' required onChange={handleState} />
+                                    <input type="number" name='preco' placeholder='Ex: 20.00' className='form-control' required onChange={handleState} />
                                 </div>
 
                                 <div className='col-12'>
@@ -128,7 +129,16 @@ const CadastroServico = () => {
                     </div>
                 </div>
             </main>
-
+            <nav className="navbar fixed-bottom ">
+                <div className="container-fluid">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/profissional/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                    </svg></Link>
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/agenda/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+                    </svg></Link>
+                </div>
+            </nav>
         </div>
     )
 }

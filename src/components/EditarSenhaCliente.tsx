@@ -81,8 +81,8 @@ const EditarSenhaCliente     = () => {
 
 
                     window.setTimeout(() => {
-                        // window.location.href = "/listagem/Cliente";
-                    }, 3600);
+                        window.location.href = "/listagem/Cliente";
+                    }, 3000);
 
                 }
                 else {

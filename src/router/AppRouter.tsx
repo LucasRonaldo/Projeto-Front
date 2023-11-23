@@ -21,6 +21,8 @@ import EditarServico from "../components/EditarServico";
 
 import EditarSenhaProfissional from "../components/EditarSenhaProfissional";
 import EditarSenhaCliente from "../components/EditarSenhaCliente";
+import PaginaInicial from "../components/PaginaInicial";
+import CadastroAgenda from "../components/CadastroAgenda";
 
 
 
@@ -28,17 +30,18 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-              
-                <Route path="/cadastro/cliente/" element={<CadastroCliente />} />
-                <Route path="/listagem/cliente/" element={<ListagemCliente />} />
-                <Route path="/cadastro/profissional/" element={<CadastroProfissional />} />
-                <Route path="/listagem/profissional/" element={<ListagemProfissional />} />
-                <Route path="/cadastro/servico/" element={<CadastroServico />} />
-                <Route path="/listagem/servico/" element={<ListagemServico />} />
+            <Route path="/home" element={<PaginaInicial />} />
+                <Route path="/cadastro/cliente" element={<CadastroCliente />} />
+                <Route path="/listagem/cliente" element={<ListagemCliente />} />
+                <Route path="/cadastro/profissional" element={<CadastroProfissional />} />
+                <Route path="/listagem/profissional" element={<ListagemProfissional />} />
+                <Route path="/cadastro/servico" element={<CadastroServico />} />
+                <Route path="/listagem/servico" element={<ListagemServico />} />
                 <Route path="/cliente/editar/:id" element={<EditarCliente/>} />
                 <Route path="/profissional/editar/:id" element={<EditarProfissional/>} />
                 <Route path="/servico/editar/:id" element={<EditarServico/>} />
-               
+                <Route path="/cadastro/agenda" element={<CadastroAgenda/>} />
+                <Route path="/listagem/agenda" element={<EditarServico/>} />
                 
                 <Route path="/recuperar/senha/cliente/:id" element={<EditarSenhaCliente/>} />
                 <Route path="/recuperar/senha/profissional/:id" element={<EditarSenhaProfissional/>} />

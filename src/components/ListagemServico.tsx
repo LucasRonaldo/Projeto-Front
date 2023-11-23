@@ -132,22 +132,36 @@ const ListagemServico = () => {
                 <div className='container  wm-100 w-auto'>
 
                     <div className='col-md mb-3'>
-                        <div className='card'>
+                    <div className='card'>
                             <div className='card-body'>
-                                <h5 className='card-title'>
-                                    Pesquisar
-                                </h5>
+                                <div className='row'>
+                                    <div className='col-5'>
+                                        <h5 className='card-title  text-center'>
+                                            Pesquisar
+                                        </h5>
+                                    </div>
+
+                                </div>
                                 <form onSubmit={buscar} className='row'>
-                                    <div className='col-10'>
+
+
+
+                                    <div className='col-5'>
                                         <input type="text" name='pesquisa' className='form-control'
                                             onChange={handleState} />
 
                                     </div>
+
                                     <div className='col-1'>
-                                        <button type='submit' className='btn btn-success'>Pesquisar</button>
+                                        <button type='submit' className='btn btn-primary'>Pesquisar</button>
                                     </div>
 
+
                                 </form>
+
+
+
+
                             </div>
                         </div>
                     </div>

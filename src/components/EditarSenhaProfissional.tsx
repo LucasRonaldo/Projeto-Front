@@ -82,7 +82,7 @@ const EditarSenhaProfissional = () => {
 
 
                     window.setTimeout(() => {
-                        // window.location.href = "/listagem/Cliente";
+                        window.location.href = "/listagem/profissional";
                     }, 3600);
 
                 }

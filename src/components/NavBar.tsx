@@ -21,21 +21,10 @@ const NavBar = () => {
             
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                <a className="nav-link active" aria-current="page" href="/home">Home</a>
               </li>
               
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="#">Cliente</a></li>
-                  <li><a className="dropdown-item" href="#">Profissional</a></li>
-                  <li><a className="dropdown-item" href="#">Serviços</a></li>
-                  <li><a className="dropdown-item" href="#">Agendas</a></li>
-                  
-                </ul>
-              </li>
+              
             </ul>
             <form className="d-flex mt-3" role="search">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
