@@ -202,6 +202,7 @@ const CadastroCliente = () => {
 
                     <div className='card'>
                         <div className='card-body'>
+                            
                         <h1 className='card-title display-6 '>Cadastrar Cliente</h1>
                             <hr />
                             <form onSubmit={cadastrarCliente} className='row g-3'>

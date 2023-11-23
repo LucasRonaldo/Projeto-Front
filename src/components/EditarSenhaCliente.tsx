@@ -16,7 +16,7 @@ const EditarSenhaCliente     = () => {
     
 
 
-    const [id, setId] = useState<number>();
+   
 
     const parametro = useParams();
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +34,7 @@ const EditarSenhaCliente     = () => {
         e.preventDefault();
 
         const dados = {
-            id: id,
+            
 
             email: email,
 

@@ -5,7 +5,7 @@ import styles from '../App.module.css'
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { ClienteInterface } from '../interfaces/ClienteInterface';
+
 
 
 const EditarSenhaProfissional = () => {
