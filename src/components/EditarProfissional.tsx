@@ -119,7 +119,57 @@ const EditarProfissional = () => {
 
         }
         fetchData();
-    }, [])
+    }, []);
+
+    const findCep = (e: FormEvent) => {
+
+        e.preventDefault();
+
+        fetch('https://viacep.com.br/ws/' + cep + '/json/',
+            {
+                method: 'GET'
+            }
+        ).then(response => response.json())
+            .then(
+                data => {
+
+                    setCidade(data.localidade);
+                    setEstado(data.uf);
+                    setRua(data.logradouro);
+                    setComplemento(data.complemento);
+                    setBairro(data.bairro)
+
+
+
+
+
+
+
+
+                }
+            ).catch(error => {
+
+
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "center-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+                Toast.fire({
+                    icon: "error",
+                    title: "CEP não encontrado"
+                });
+            });
+
+
+    }
 
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {

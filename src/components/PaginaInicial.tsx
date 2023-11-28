@@ -119,13 +119,14 @@ const PaginaInicial = () => {
             <header>
                 <div className="p-5  text-white bg-image  fotoInicial">
                     <div className="p-4 shadow-4 rounded-3">
-                        <p className=" tamanhoFont">Estilo e Lamina</p>
-                        <p>
-                            Comece hoje a organizar sua empresa do jeito certo
-                        </p>
-                        <p>
+                        <p className=" tamanhoFont text-center top">Estilo & Lamina</p>
+                        <p className='text-center'>
+                            Comece hoje a organizar sua empresa do jeito certo. <br />
                             Aplicativo para cadastrar, sua empresa, serviços, 
                             profissionais e seus horarios de forma rapida e pratica.
+                        </p>
+                        <p>
+                           
                         </p>
 
 
