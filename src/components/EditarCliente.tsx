@@ -47,7 +47,7 @@ const EditarCliente = () => {
 
         }
 
-        axios.put('http://127.0.0.1:8000/api/update/Cliente',
+        axios.put('http://127.0.0.1:8000/api/update/cliente',
             dados,
             {
                 headers: {
@@ -65,7 +65,7 @@ const EditarCliente = () => {
                         showConfirmButton: false
                     });
                     window.setTimeout(() => {
-                        window.location.href = "/listagem/Cliente";
+                        window.location.href = "/listagem/cliente";
                     }, 3600);
 
                 }
@@ -92,7 +92,7 @@ const EditarCliente = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/find/Cliente/" + parametro.id);
+                const response = await axios.get("http://127.0.0.1:8000/api/find/cliente/" + parametro.id);
                 setNome(response.data.data.nome)
                 setEmail(response.data.data.email)
                 setCpf(response.data.data.cpf)

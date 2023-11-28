@@ -6,9 +6,11 @@ import Swal from 'sweetalert2';
 
 import { ClienteInterface } from '../interfaces/ClienteInterface';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 
 const ListagemCliente = () => {
+    
 
     const [clientes, setClientes] = useState<ClienteInterface[]>([]);
 
@@ -27,7 +29,7 @@ const ListagemCliente = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/Cliente',
+                const response = await axios.post('http://127.0.0.1:8000/api/nome/cliente',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -76,21 +78,12 @@ const ListagemCliente = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/Cliente');
+                const response = await axios.get('http://127.0.0.1:8000/api/all/cliente');
                 if (response.data.status == true) {
-
+                  
                     setClientes(response.data.data);
                 }
-                else {
-
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Não há nenhum registro no sistema",
-                        footer: '<a href="/cadastro/Cliente">Clique aqui para cadastrar</a>'
-                    });
-
-                }
+               
 
 
 
@@ -204,6 +197,10 @@ const ListagemCliente = () => {
                             <h4 className='card-title display-6 '>Listagem de Clientes</h4>
 
                             <hr />
+                            {clientes.length === 0 ? (
+                                <p className="text-body-secondary fs-5">Não há nenhum registro no sistema!</p>
+                                
+                            ) :(
                             <table className='table table-hover '>
                                 <thead>
                                     <tr>
@@ -248,16 +245,18 @@ const ListagemCliente = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            )}
                         </div>
                     </div>
                 </div>
             </main>
+            <Footer/>
             <nav className="navbar fixed-bottom ">
-                <div className="container-fluid">
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/agenda/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
+                <div className="container-fluid  m-1">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/agenda"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     </svg></Link>
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/profissional/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/profissional"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg></Link>
                 </div>

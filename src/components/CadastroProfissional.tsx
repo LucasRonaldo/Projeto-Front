@@ -1,8 +1,5 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
-
 import styles from '../App.module.css'
-//footer
-//header
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import NavBar from './NavBar';
@@ -49,7 +46,7 @@ const CadastroProfissional = () => {
 
         }
 
-        axios.post('http://127.0.0.1:8000/api/cadastrar/Profissional',
+        axios.post('http://127.0.0.1:8000/api/cadastrar/profissional',
             dados,
             {
                 headers: {
@@ -61,21 +58,21 @@ const CadastroProfissional = () => {
             if (response.data.status == true) {
 
                 Swal.fire({
-                    title: "Cadastrado",
-                    text: "O profissional foi cadastrado com sucesso",
+                    title: response.data.title,
+                    text: response.data.message,
                     icon: "success",
                     timer: 6000,
                     showConfirmButton: false
                 });
 
                 window.setTimeout(() => {
-                    window.location.href = "/listagem/Profissional";
+                    window.location.href = "/listagem/profissional";
                 }, 3600);
             }
             else {
                 Swal.fire({
-                    title: "Erro",
-                    text: "O profissional não foi cadastrado!",
+                    title: response.data.title,
+                    text: response.data.message,
                     icon: "error",
                     timer: 3000,
                     showConfirmButton: false
@@ -234,7 +231,7 @@ const CadastroProfissional = () => {
                                     <label htmlFor="cpf" className='form-label'>Cidade</label>
                                     <input type="text" value={cidade} name='cidade' className='form-control ' required onChange={handleState} />
                                 </div>
-                                
+
                                 <div className='col-2'>
                                     <label htmlFor="celular" className='form-label'>Pais</label>
                                     <input type="text" name='pais' className='form-control ' required onChange={handleState} />
@@ -280,11 +277,11 @@ const CadastroProfissional = () => {
                 </div>
             </main>
             <nav className="navbar fixed-bottom ">
-                <div className="container-fluid">
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/cliente/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
+                <div className="container-fluid m-1">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/cliente"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     </svg></Link>
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/servico/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/servico"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg></Link>
                 </div>

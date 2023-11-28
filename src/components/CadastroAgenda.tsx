@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 import Swal from 'sweetalert2';
 
 import { ProfissionalInterface } from "../interfaces/ProfissionalInterface";
-import { ServicoInterface } from "../interfaces/ServicoInterface";
+
 
 
 import axios from 'axios';
@@ -16,18 +16,18 @@ const CadastroAgenda = () => {
 
 
     const [profissional_id, setProfissional_id] = useState<string>("");
-    const [dataHora, setDataHora] = useState<string>("");
-    
+    const [data_hora, setDataHora] = useState<string>("");
+
     const [profissional, setProfissional] = useState<ProfissionalInterface[]>([]);
-    const [servico, setServico] = useState<ServicoInterface[]>([]);
-   
+
+
 
     const cadastrarAgenda = (e: FormEvent) => {
         e.preventDefault();
 
         const dados = {
             profissional_id: profissional_id,
-            data_hora: dataHora,
+            data_hora: data_hora,
 
 
         }
@@ -50,9 +50,10 @@ const CadastroAgenda = () => {
                     });
 
                     window.setTimeout(() => {
-                        window.location.href = "/agendamento/profissional"
+                        window.location.href = "/listagem/agenda"
                     }, 3600);
-                    console.log(response.data)
+                    console.log(response.data.data_hora)
+                    console.log(response.data.profissional_id)
                 }
                 else {
                     Swal.fire({
@@ -73,10 +74,10 @@ const CadastroAgenda = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/Profissional  ');
+                const response = await axios.get('http://127.0.0.1:8000/api/all/profissional  ');
                 if (true == response.data.status) {
                     setProfissional(response.data.data)
-                    console.log(profissional);
+                    console.log(response.data.profissional);
                 }
             } catch (error) {
                 console.log(error);
@@ -91,89 +92,83 @@ const CadastroAgenda = () => {
         fetchData();
     }, []);
 
-   
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/servico  ');
-                if (true == response.data.status) {
-                    setServico(response.data.data)
-                    console.log(servico);
-                }
-            } catch (error) {
-                console.log(error);
-                Swal.fire({
-                    title: "Ocorreu um erro",
-                    text: "XXXXXXXXXXXXXXXX ",
-                    icon: "error"
-                });
-            }
-        }
 
-        fetchData();
-    }, []);
+
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
 
-     
+
         if (e.target.name === "data_hora") {
             setDataHora(e.target.value);
-        }   
-       
-       
+        }
+
+
+
     }
 
     const handleProfissional = (e: ChangeEvent<HTMLSelectElement>) => {
-       
+        if (e.target.name === 'profissional_id') {
             setProfissional_id(e.target.value);
-       
+        }
     }
-    
 
 
-  
+
+
     return (
         <div>
             <NavBar />
 
 
-            <main>
+            <main className={styles.main}>
+
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='card-title'>Cadastrar Agenda</h5>
+                            <h1 className='card-title display-6 '>Cadastro Agenda</h1>
+                            <hr />
                             <form onSubmit={cadastrarAgenda} className='row g-3'>
-                                <div className='col-6'>
-                                    <label htmlFor="nome" className='form-label'>Profissional_Id</label>
-                                    <select name='profissional_id' id='profissional_id ' className='form-control' required onChange={handleProfissional}  >
-                                        <option value="0">Selecione um Profissional</option>
-                                        {profissional.map(profissional => (
-                                            <option key={profissional.id} value={profissional.id}>
-                                                {profissional.nome}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                                    <div className='col-6'>
+                                        <label htmlFor="nome" className='form-label'>Profissional_Id</label>
+                                        <select name='profissional_id' id='profissional_id ' className='form-control' required onChange={handleProfissional}  >
+                                            <option value="0">Selecione um Profissional</option>
+                                            {profissional.map(profissional => (
+                                                <option key={profissional.id} value={profissional.id}>
+                                                    {profissional.nome}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
 
                                 <div className='col-6'>
                                     <label htmlFor="data_hora" className='form-label' >Data e hora</label>
                                     <input type="datetime-local" name='data_hora' className='form-control' required onChange={handleState} />
-                                </div>                
+                                </div>
+
+
                                 <div className='col-12'>
-                                    <button type='submit' className='btn btn-success btn-sm'>Cadastrar</button>
+                                    <button type='submit' className="cssbuttons-io-button centralizar " >
+                                        Cadastrar
+                                        <div className="icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" className="bi bi-calendar" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+                                            </svg>
+                                        </div>
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
+
             </main>
             <nav className="navbar fixed-bottom ">
-                <div className="container-fluid">
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/agenda/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
+                <div className="container-fluid m-1">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/servico"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     </svg></Link>
 
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/profissional/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/cadastro/cliente"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg></Link>
                 </div>

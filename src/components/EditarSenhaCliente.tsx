@@ -43,7 +43,7 @@ const EditarSenhaCliente     = () => {
 
 
 
-        axios.put('http://127.0.0.1:8000/api/recuperar/senha/Cliente',
+        axios.put('http://127.0.0.1:8000/api/recuperar/senha/cliente',
             dados,
             {
                 headers: {
@@ -81,7 +81,7 @@ const EditarSenhaCliente     = () => {
 
 
                     window.setTimeout(() => {
-                        window.location.href = "/listagem/Cliente";
+                        window.location.href = "/listagem/cliente";
                     }, 3000);
 
                 }
@@ -125,7 +125,7 @@ const EditarSenhaCliente     = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/find/Cliente/" + parametro.id);
+                const response = await axios.get("http://127.0.0.1:8000/api/find/cliente/" + parametro.id);
                 if (response.data.status === true) {
                     
                     setEmail(response.data.data.email)

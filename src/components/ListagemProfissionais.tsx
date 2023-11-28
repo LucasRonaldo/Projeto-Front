@@ -6,6 +6,7 @@ import { ProfissionalInterface } from '../interfaces/ProfissionalInterface';
 import NavBar from './NavBar';
 import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
 
 
 const ListagemProfissional = () => {
@@ -26,7 +27,7 @@ const ListagemProfissional = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/Profissional',
+                const response = await axios.post('http://127.0.0.1:8000/api/nome/profissional',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -37,7 +38,7 @@ const ListagemProfissional = () => {
                 ).then(function (response) {
                     if (true == response.data.status) {
                         setProfissionais(response.data.data)
-                        console.log(response.data.data)
+                        
                     }
                 }).catch(function (error) {
                     setError(error)
@@ -53,18 +54,13 @@ const ListagemProfissional = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/Profissional');
+                const response = await axios.get('http://127.0.0.1:8000/api/all/profissional');
                 if (response.data.status == true) {
                     setProfissionais(response.data.data);
                 }
                 else {
 
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Não há nenhum registro no sistema",
-                        footer: '<a href="/cadastro/Profissional">Clique aqui para cadastrar</a>'
-                    });
+                   console.log("Nenhum registro no sistema")
 
                 }
 
@@ -105,12 +101,15 @@ const ListagemProfissional = () => {
 
                 axios.delete('http://127.0.0.1:8000/api/excluir/profissional/' + id)
                     .then(function (response) {
-                        window.location.href = "/listagem/profissional"
+                        
+                            window.location.href = "/listagem/profissional"
+                        
+                        
                     }).catch(function (error) {
-                        console.log("ocorreu um erro")
+                        console.log(error)
                     })
             } else if (
-                /* Read more about handling dismissals below */
+                
                 result.dismiss === Swal.DismissReason.cancel
             ) {
                 swalWithBootstrapButtons.fire({
@@ -169,6 +168,11 @@ const ListagemProfissional = () => {
                         <div className='card-body'>
                             <h4 className='card-title display-6 '>Listagem de Profissionais</h4>
                             <hr />
+
+                            {profissionais.length === 0 ? (
+                                <p className="text-body-secondary fs-5">Não há nenhum registro no sistema!</p>
+                                
+                            ) :(
                             <table className='table table-hover '>
                                 <thead>
                                     <tr>
@@ -176,14 +180,8 @@ const ListagemProfissional = () => {
                                         <th>Nome</th>
                                         <th>E-mail</th>
                                         <th>CPF</th>
-                                        
-                                       
-                                        <th>celular</th>
-                                        
+                                        <th>celular</th>        
                                         <th>Salario</th>
-
-
-
                                         <th>Ações</th>
                                     </tr>
                                 </thead>
@@ -196,13 +194,8 @@ const ListagemProfissional = () => {
                                             <td>{profissionais.nome}</td>
                                             <td>{profissionais.email}</td>
                                             <td>{profissionais.cpf}</td>
-                                            
-                                          
-                                            <td>{profissionais.celular}</td>
-                                           
+                                            <td>{profissionais.celular}</td>      
                                             <td>{profissionais.salario}</td>
-
-
                                             <td className='col-2'>
 
                                                 <Link to={"/profissional/editar/" + profissionais.id} className='zoom p-1 btn btn-primary btn-sm'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-pen" viewBox="0 0 16 16">
@@ -225,16 +218,18 @@ const ListagemProfissional = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            )}
                         </div>
                     </div>
                 </div>
             </main>
-            <nav className="navbar fixed-bottom ">
-                <div className="container-fluid">
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/cliente/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
+            <Footer/>
+            <nav className="navbar fixed-bottom">
+                <div className="container-fluid  m-1">
+                    <Link className="zoom btn   btn-secondary p-1  btn-sm" to={"/listagem/cliente"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
                     </svg></Link>
-                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/servico/"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
+                    <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/servico"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
                     </svg></Link>
                 </div>

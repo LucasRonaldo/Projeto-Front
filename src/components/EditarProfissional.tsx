@@ -50,7 +50,7 @@ const EditarProfissional = () => {
 
         }
 
-        axios.put('http://127.0.0.1:8000/api/update/Profissional',
+        axios.put('http://127.0.0.1:8000/api/update/profissional',
             dados,
             {
                 headers: {
@@ -68,7 +68,7 @@ const EditarProfissional = () => {
                         showConfirmButton: false
                     });
                     window.setTimeout(() => {
-                        window.location.href = "/listagem/Profissional";
+                        window.location.href = "/listagem/profissional";
                     }, 3600);
 
                 }
