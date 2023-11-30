@@ -1,8 +1,6 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 
 import styles from '../App.module.css'
-//footer
-//header
 import axios from 'axios';
 import NavBar from './NavBar';
 import Swal from 'sweetalert2';
@@ -144,4 +142,4 @@ const CadastroServico = () => {
 }
 
 export default CadastroServico;
-
+//Pronto

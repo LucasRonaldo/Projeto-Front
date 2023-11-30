@@ -15,7 +15,7 @@ const ListagemCliente = () => {
     const [clientes, setClientes] = useState<ClienteInterface[]>([]);
 
     const [pesquisa, setPesquisa] = useState<string>('');
-    const [error, setError] = useState("");
+    const [error, setError] = useState('');
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.name === "pesquisa") {
@@ -29,7 +29,7 @@ const ListagemCliente = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/cliente',
+                const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/nome/cliente',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -265,3 +265,5 @@ const ListagemCliente = () => {
     );
 }
 export default ListagemCliente;
+
+//Pronto

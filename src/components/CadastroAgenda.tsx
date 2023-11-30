@@ -77,15 +77,11 @@ const CadastroAgenda = () => {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/profissional  ');
                 if (true == response.data.status) {
                     setProfissional(response.data.data)
-                    console.log(response.data.profissional);
+                   
                 }
             } catch (error) {
                 console.log(error);
-                Swal.fire({
-                    title: "Ocorreu um erro",
-                    text: "XXXXXXXXXXXXXXXX ",
-                    icon: "error"
-                });
+               
             }
         }
 
@@ -179,4 +175,6 @@ const CadastroAgenda = () => {
 }
 
 export default CadastroAgenda;
+
+//Pronto
 

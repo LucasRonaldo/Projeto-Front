@@ -81,7 +81,7 @@ const EditarServico = () => {
                 setDuracao(response.data.data.duracao)
                 setId(response.data.data.id)
                 setPreco(response.data.data.preco)
-                console.log(response.data.data)
+                
                 
 
 
@@ -162,3 +162,5 @@ const EditarServico = () => {
         )
     }
     export default EditarServico;
+
+    //Pronto

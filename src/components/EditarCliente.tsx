@@ -1,7 +1,6 @@
 import React, { Component, useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import NavBar from './NavBar';
 import styles from '../App.module.css'
-
 import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -134,14 +133,6 @@ const EditarCliente = () => {
                     setRua(data.logradouro);
                     setComplemento(data.complemento);
                     setBairro(data.bairro)
-
-
-
-
-
-
-
-
                 }
             ).catch(error => {
 
@@ -250,8 +241,8 @@ const EditarCliente = () => {
 
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Cep</label>
-                                    <input type="text" value={cep} name='cep' className='form-control' required onChange={handleState} />
-                                </div>
+                                    <input type="text" value={cep}  onBlur={findCep} name='cep' className='form-control' required onChange={handleState} />
+                                </div>  
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Estado</label>
                                     <input type="text" name='estado' value={estado} className='form-control' required onChange={handleState} />

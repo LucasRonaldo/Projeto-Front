@@ -150,15 +150,7 @@ const CadastroProfissional = () => {
                     setEstado(data.uf);
                     setRua(data.logradouro);
                     setComplemento(data.complemento);
-                    setBairro(data.bairro)
-
-
-
-
-
-
-
-
+                    setBairro(data.bairro);
                 }
             ).catch(error => {
 
@@ -291,4 +283,6 @@ const CadastroProfissional = () => {
 }
 
 export default CadastroProfissional;
+
+//Pronto
 

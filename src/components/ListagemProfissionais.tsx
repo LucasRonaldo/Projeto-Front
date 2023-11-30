@@ -27,7 +27,7 @@ const ListagemProfissional = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/profissional',
+                const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/nome/profissional',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -93,16 +93,26 @@ const ListagemProfissional = () => {
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                swalWithBootstrapButtons.fire({
-                    title: "Deletado!",
-                    text: "O cliente foi excluido",
-                    icon: "success"
-                });
+               
 
                 axios.delete('http://127.0.0.1:8000/api/excluir/profissional/' + id)
                     .then(function (response) {
-                        
+                        if(response.data.status === true){
+                            swalWithBootstrapButtons.fire({
+                                title: "Deletado!",
+                                text: "O cliente foi excluido",
+                                icon: "success"
+                            });
                             window.location.href = "/listagem/profissional"
+                        }
+                        else{
+                            swalWithBootstrapButtons.fire({
+                                title: "Cancelado",
+                                text: response.data.message,
+                                icon: "error"
+                            });
+
+                        }
                         
                         
                     }).catch(function (error) {

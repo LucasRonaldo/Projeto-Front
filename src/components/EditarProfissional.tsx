@@ -138,14 +138,6 @@ const EditarProfissional = () => {
                     setRua(data.logradouro);
                     setComplemento(data.complemento);
                     setBairro(data.bairro)
-
-
-
-
-
-
-
-
                 }
             ).catch(error => {
 
@@ -252,7 +244,7 @@ const EditarProfissional = () => {
 
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Cep</label>
-                                    <input type="text" value={cep} name='cep' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={cep}  onBlur={findCep} name='cep' className='form-control' required onChange={handleState} />
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="cpf" className='form-label'>Estado</label>
@@ -312,3 +304,4 @@ const EditarProfissional = () => {
     )
 }
 export default EditarProfissional;
+//Pronto

@@ -25,7 +25,7 @@ const ListagemAgenda = () => {
 
         async function fetchData() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/nome/agenda',
+                const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/nome/agenda',
                     { nome: pesquisa },
                     {
                         headers: {
@@ -245,3 +245,5 @@ const ListagemAgenda = () => {
     );
 }
 export default ListagemAgenda;
+
+//Pronto

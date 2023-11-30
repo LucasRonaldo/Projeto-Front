@@ -14,7 +14,7 @@ const EditarSenhaProfissional = () => {
    
     const [email, setEmail] = useState<string>("");
     
-    const [id, setId] = useState<number>();
+    
 
     
 
@@ -35,8 +35,6 @@ const EditarSenhaProfissional = () => {
 
         const dados = {
             
-            id:id,  
-
             email: email,
 
 
@@ -188,3 +186,5 @@ const EditarSenhaProfissional = () => {
     )
 }
 export default EditarSenhaProfissional;
+
+//Pronto
