@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Sistema de Cadastro e Agendamento
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositório contém um sistema para gerenciamento de clientes, serviços, profissionais e agendas.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+### Cadastro de Clientes
+- **Salvar:** Adiciona um novo cliente ao sistema.
+- **Atualizar:** Atualiza as informações de um cliente existente.
+- **Pesquisar por nome:** Busca um cliente pelo nome.
+- **Excluir:** Remove um cliente do sistema.
+- **Recuperação de senha:** Permite ao cliente recuperar a senha da sua conta.
+- **Busca de CEP:** Preenche automaticamente os campos de endereço baseados no CEP fornecido.
 
-### `npm start`
+### Cadastro de Serviços
+- **Salvar:** Registra um novo serviço no sistema.
+- **Atualizar:** Permite a atualização das informações de um serviço existente.
+- **Pesquisar por nome:** Busca um serviço pelo nome.
+- **Excluir:** Remove um serviço do sistema.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Cadastro de Profissionais
+- **Salvar:** Adiciona um novo profissional ao sistema.
+- **Atualizar:** Permite a atualização das informações de um profissional existente.
+- **Pesquisar por nome:** Busca um profissional pelo nome.
+- **Recuperação de senha:** Permite ao profissional recuperar a senha da sua conta.
+- **Busca de CEP:** Preenche automaticamente os campos de endereço baseados no CEP fornecido.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Cadastro de Agenda
+- **Listagem de horários do profissional:** Mostra os horários disponíveis de um profissional para agendamento.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Como executar o projeto
+- [Instruções para a configuração e execução do sistema]
 
-### `npm run build`
+- npm Install
+- code .
+- npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Copie e cole este código no arquivo `README.md` do seu repositório no GitHub. Lembre-se de preencher as seções específicas do seu projeto, como as tecnologias utilizadas e as instruções para executar o projeto.
