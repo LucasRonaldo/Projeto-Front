@@ -36,4 +36,3 @@ Este repositório contém um sistema para gerenciamento de clientes, serviços, 
 
 ```
 
-Copie e cole este código no arquivo `README.md` do seu repositório no GitHub. Lembre-se de preencher as seções específicas do seu projeto, como as tecnologias utilizadas e as instruções para executar o projeto.
