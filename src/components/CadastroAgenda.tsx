@@ -18,11 +18,14 @@ const CadastroAgenda = () => {
     const [profissional_id, setProfissional_id] = useState<string>("");
     const [data_hora, setDataHora] = useState<string>("");
 
+    const [data_horaErro, setDataHoraErro] = useState<string>("");
+
     const [profissional, setProfissional] = useState<ProfissionalInterface[]>([]);
 
 
 
     const cadastrarAgenda = (e: FormEvent) => {
+        setDataHoraErro("");
         e.preventDefault();
 
         const dados = {
@@ -42,8 +45,8 @@ const CadastroAgenda = () => {
             }).then(function (response) {
                 if (true === response.data.status) {
                     Swal.fire({
-                        title: "Cadastrado com sucesso",
-                        text: "redirecionando para Listagem...",
+                        title: "Sucesso",
+                        text: "Agenda Cadastrada",
                         icon: "success",
                         showConfirmButton: false,
                         timer: 3000
@@ -52,8 +55,7 @@ const CadastroAgenda = () => {
                     window.setTimeout(() => {
                         window.location.href = "/listagem/agenda"
                     }, 3600);
-                    console.log(response.data.data_hora)
-                    console.log(response.data.profissional_id)
+                   
                 }
                 else {
                     Swal.fire({

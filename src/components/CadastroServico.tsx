@@ -13,8 +13,21 @@ const CadastroServico = () => {
     const [duracao, setDuracao] = useState<string>("");
     const [preco, setPreco] = useState<string>("");
 
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [descricaoErro, setDescricaoErro] = useState<string>("");
+    const [duracaoErro, setDuracaoErro] = useState<string>("");
+    const [precoErro, setPrecoErro] = useState<string>("");
+
 
     const cadastrarProfissional = (e: FormEvent) => {
+
+        setNomeErro("");
+        setDescricaoErro("");
+        setDuracaoErro("");
+        setPrecoErro("");
+       
+        e.preventDefault();
+
         e.preventDefault();
 
 
@@ -51,13 +64,19 @@ const CadastroServico = () => {
             }
             else {
 
-                Swal.fire({
-                    title: "Erro",
-                    text: "O cliente não foi cadastrado!",
-                    icon: "error",
-                    timer: 3000,
-                    showConfirmButton: false
-                });
+                if ("nome" in response.data.error) {
+                    setNomeErro(response.data.error.nome[0]);
+                }
+                if ("descricao" in response.data.error) {
+                    setDescricaoErro(response.data.error.descricao[0]);
+
+                }
+                if ("duracao" in response.data.error) {
+                    setDuracaoErro(response.data.error.duracao[0]);
+                }
+                if ("preco" in response.data.error) {
+                    setPrecoErro(response.data.error.preco[0]);
+                }
             }
 
 
@@ -96,20 +115,24 @@ const CadastroServico = () => {
                             <form onSubmit={cadastrarProfissional} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
-                                    <input type="text" placeholder='Digite o nome' name='nome' className='form-control' required onChange={handleState} />
+                                    <input type="text" placeholder='Digite o nome' name='nome' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                               <div className="text-danger">{nomeErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="email" className='form-label' >Descrição</label>
-                                    <input type="text" placeholder='Digite a descrição' name='descricao' className='form-control' required onChange={handleState} />
+                                    <input type="text" placeholder='Digite a descrição' name='descricao' className={'form-control' + (descricaoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
 
+                               <div className="text-danger">{descricaoErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cpf" className='form-label'>Duração</label>
-                                    <input type="text" placeholder='Ex: 12' name='duracao' className='form-control' required onChange={handleState} />
+                                    <input type="text" placeholder='Ex: 12' name='duracao' className={'form-control' + (duracaoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                               <div className="text-danger">{duracaoErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cpf" className='form-label'>Preço</label>
-                                    <input type="number" name='preco' placeholder='Ex: 20.00' className='form-control' required onChange={handleState} />
+                                    <input type="text" name='preco' placeholder='Ex: 20.00' className={'form-control' + (precoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                               <div className="text-danger">{precoErro}</div>
                                 </div>
 
                                 <div className='col-12'>

@@ -10,91 +10,65 @@ import Footer from './Footer';
 const ListagemAgenda = () => {
 
     const [agenda, setAgenda] = useState<AgendaInterface[]>([]);
-    const [pesquisa, setPesquisa] = useState<string>('');
-    const [error, setError] = useState("");
+    const [tipoPesquisa, setTipoPesquisa] = useState<string>('id_profissional');
+    const [dataHora, setPesquisaDataHora] = useState<string>('');
+    const [profissionalId, setPesquisaIdProfissional] = useState<string>('');
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.name === "pesquisa") {
-            setPesquisa(e.target.value);
+        if (e.target.name === 'pesquisa') {
+            setPesquisaDataHora(e.target.value);
         }
+    };
 
-    }
+    const buscarPorIdProfissional = async (id: string) => {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/profissional/agenda', { profissional_id: id }, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
 
-    const buscar = (e: FormEvent) => {
+            if (response.data.status === true) {
+                setAgenda(response.data.data);
+            } else {
+                // Tratar erro caso não encontre dados com esse ID
+            }
+        } catch (error) {
+            console.log(error);
+            // Tratar erro caso ocorra um problema na requisição
+        }
+    };
+
+    const buscarPorDataDoId = async () => {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/data/agenda', { data_hora: dataHora }, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.data.status === true) {
+                setAgenda(response.data.data);
+            } else {
+                // Tratar erro caso não encontre dados com essa data
+            }
+        } catch (error) {
+            console.log(error);
+            // Tratar erro caso ocorra um problema na requisição
+        }
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        async function fetchData() {
-            try {
-                const response = await axios.post('http://127.0.0.1:8000/api/pesquisar/nome/agenda',
-                    { nome: pesquisa },
-                    {
-                        headers: {
-                            "Accept": "application/json",
-                            "Content-Type": "application/json"
-                        }
-                    }
-                ).then(function (response) {
-                    if (true === response.data.status) {
-
-                        setAgenda(response.data.data)
-                    }
-                    else {
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "top-start",
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.onmouseenter = Swal.stopTimer;
-                                toast.onmouseleave = Swal.resumeTimer;
-                            }
-                        });
-                        Toast.fire({
-                            icon: "error",
-                            title: response.data.message
-                        });
-                    }
-
-                }).catch(function (error) {
-                    console.log(error)
-                });
-
-            } catch (error) {
-                console.log(error);
-            }
+        if (tipoPesquisa === 'id_profissional') {
+            await buscarPorIdProfissional(profissionalId);
+        } else if (tipoPesquisa === 'data') {
+            await buscarPorDataDoId();
         }
-        fetchData();
-    }
-
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/all/agenda');
-                if (response.data.status == true) {
-
-                    setAgenda(response.data.data);
-                    console.log(response.data.data_hora)
-                }
-                else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Não há nenhum registro no sistema",
-                        footer: '<a href="/cadastro/agenda">Clique aqui para cadastrar</a>'
-                    });
-
-                }
-            } catch (error) {
-                setError("Ocorreu um erro");
-                console.log(error);
-            }
-        }
-
-        fetchData();
-    }, []);
-
+    };
 
 
 
@@ -147,6 +121,32 @@ const ListagemAgenda = () => {
 
 
     }
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/all/agenda');
+                if (response.data.status == true) {
+
+                    setAgenda(response.data.data);
+                    console.log(response.data.data_hora)
+                }
+                else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Não há nenhum registro no sistema",
+                        footer: '<a href="/cadastro/agenda">Clique aqui para cadastrar</a>'
+                    });
+
+                }
+            } catch (error) {
+
+                console.log(error);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -164,15 +164,40 @@ const ListagemAgenda = () => {
                                     </div>
 
                                 </div>
-                                <form onSubmit={buscar} className='row'>
-                                    <div className='col-5'>
-                                        <input type="text" name='pesquisa' className='form-control'
-                                            onChange={handleState} />
+                                <form onSubmit={handleSubmit} className='row mb-3'>
+                                    <div className='col-md-4'>
+                                        <select className='form-select' onChange={(e) => setTipoPesquisa(e.target.value)}>
+                                            <option value='id_profissional'>Pesquisar por ID do Profissional</option>
+                                            <option value='data'>Pesquisar por Data</option>
+                                        </select>
                                     </div>
-                                    <div className='col-1'>
-                                        <button type='submit' className='btn btn-primary'>Pesquisar</button>
+                                    <div className='col-md-6'>
+                                        {tipoPesquisa === 'id_profissional' ? (
+                                            <input
+                                                type='text'
+                                                name='profissional_id'
+                                                className='form-control'
+                                                placeholder='Pesquisar por ID do Profissional'
+                                                onChange={(e) => setPesquisaIdProfissional(e.target.value)}
+                                            />
+                                        ) : (
+                                            <input
+                                                type='text'
+                                                name='pesquisa'
+                                                className='form-control'
+                                                placeholder='Pesquisar por Data'
+                                                onChange={handleState}
+                                            />
+                                        )}
+                                    </div>
+                                    <div className='col-md-2'>
+                                        <button type='submit' className='btn btn-primary'>
+                                            Pesquisar
+                                        </button>
                                     </div>
                                 </form>
+
+
                             </div>
                         </div>
                     </div>
@@ -210,7 +235,7 @@ const ListagemAgenda = () => {
 
                                                 <td className='col-2'>
 
-                                                   
+
 
                                                     <a onClick={e => handleDelete(agenda.id)} className='zoom p-1 m-1 btn btn-danger btn-sm'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
@@ -230,7 +255,7 @@ const ListagemAgenda = () => {
                     </div>
                 </div>
             </main>
-            <Footer/>
+            <Footer />
             <nav className="navbar fixed-bottom ">
                 <div className="container-fluid m-1">
                     <Link className="zoom btn  btn-secondary p-1  btn-sm" to={"/listagem/servico"}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
