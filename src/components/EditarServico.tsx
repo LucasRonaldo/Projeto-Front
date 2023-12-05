@@ -16,9 +16,20 @@ const EditarServico = () => {
     const [preco, setPreco]= useState<string>("");
     const [id, setId] = useState<number>();
 
+    const [nomeErro, setNomeErro] = useState<string>("");
+    const [descricaoErro, setDescricaoErro]= useState<string>("");
+    const [duracaoErro, setDuracaoErro]= useState<string>("");
+    const [precoErro, setPrecoErro]= useState<string>("");
+  
+
+
     const parametro = useParams();
 
     const atualizarServico = (e: FormEvent) => {
+        setNomeErro("");
+        setDescricaoErro("");
+        setDuracaoErro("");
+        setPrecoErro("");
         e.preventDefault();
 
         const dados = {
@@ -53,13 +64,19 @@ const EditarServico = () => {
     
                 }
                 else{
-                    Swal.fire({
-                        title: "Erro",
-                        text: "O Servico não foi atualizado!",
-                        icon: "error",
-                        timer: 3000,
-                        showConfirmButton: false
-                    });
+                    if ("nome" in response.data.error) {
+                        setNomeErro(response.data.error.nome[0]);
+                    }
+                    if ("descricao" in response.data.error) {
+                        setDescricaoErro(response.data.error.descricao[0]);
+    
+                    }
+                    if ("duracao" in response.data.error) {
+                        setDuracaoErro(response.data.error.duracao[0]);
+                    }
+                    if ("preco" in response.data.error) {
+                        setPrecoErro(response.data.error.preco[0]);
+                    }
                 }
                
                 
@@ -125,20 +142,24 @@ const EditarServico = () => {
                             <form onSubmit={atualizarServico} className='row g-3'>
                             <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
-                                    <input type="text" value={nome} name='nome' className='form-control' required onChange={handleState} />
+                                    <input type="text" value={nome} name='nome' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                    <div className="text-danger">{nomeErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="descricao" className='form-label' >Descrição</label>
-                                    <input type="text" value={descricao} name='descricao' className='form-control'required  onChange={handleState}/>
-                                    
+                                    <input type="text" value={descricao} name='descricao' className={'form-control' + (descricaoErro ? ' border-danger border-2' : '')} required  onChange={handleState}/>
+                                    <div className="text-danger">{descricaoErro}</div>
+                                
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="duracao" className='form-label'>Duração</label>
-                                    <input type="text" value={duracao} name='duracao' className='form-control' required  onChange={handleState}/>
+                                    <input type="text" value={duracao} name='duracao' className={'form-control' + (duracaoErro ? ' border-danger border-2' : '')} required  onChange={handleState}/>
+                                    <div className="text-danger">{duracaoErro}</div>
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="preco" className='form-label'>Preço</label>
-                                    <input type="number" value={preco} name='preco' className='form-control' required  onChange={handleState}/>
+                                    <input type="number" value={preco} name='preco' className={'form-control' + (precoErro ? ' border-danger border-2' : '')}   required  onChange={handleState}/>
+                                    <div className="text-danger">{precoErro}</div>
                                 </div>
 
                                 <div className='col-12 '>
