@@ -30,8 +30,6 @@ Este repositório contém um sistema para gerenciamento de clientes, serviços, 
 
 
 ## Como executar o projeto
-- [Instruções para a configuração e execução do sistema]
-
 - npm Install
 - code .
 - npm start
