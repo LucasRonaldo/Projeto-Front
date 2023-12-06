@@ -98,7 +98,7 @@ const ListagemServico = () => {
                 axios.delete('http://127.0.0.1:8000/api/excluir/servico/' + id)
                     .then(function (response) {
                         if (response.data.status) {
-                            window.location.href = "/listagem/Cliente"
+                            window.location.href = "/listagem/servico"
                         }
                     }).catch(function (error) {
                         console.log("ocorreu um erro")

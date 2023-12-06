@@ -344,7 +344,7 @@ const CadastroCliente = () => {
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Complemento</label>
-                                        <input type="text" name='complemento' value={complemento} className={'form-control' + (complementoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='complemento' value={complemento} className={'form-control' + (complementoErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{complementoErro}</div>
                                     </div>
                                     <div className='col-4'>

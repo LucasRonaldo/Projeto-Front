@@ -128,7 +128,7 @@ const CadastroAgenda = () => {
                             <form onSubmit={cadastrarAgenda} className='row g-3'>
                                     <div className='col-6'>
                                         <label htmlFor="nome" className='form-label'>Profissional_Id</label>
-                                        <select name='profissional_id' id='profissional_id ' className='form-control' required onChange={handleProfissional}  >
+                                        <select name='profissional_id' id='profissional_id '  className={'form-control' + (data_horaErro ? ' border-danger border-2' : '')} required onChange={handleProfissional}  >
                                             <option value="0">Selecione um Profissional</option>
                                             {profissional.map(profissional => (
                                                 <option key={profissional.id} value={profissional.id}>
@@ -140,7 +140,7 @@ const CadastroAgenda = () => {
 
                                 <div className='col-6'>
                                     <label htmlFor="data_hora" className='form-label' >Data e hora</label>
-                                    <input type="datetime-local" name='data_hora' className='form-control' required onChange={handleState} />
+                                    <input type="datetime-local" name='data_hora'  className={'form-control' + (data_horaErro ? ' border-danger border-2' : '')} required onChange={handleState} />
                                 </div>
 
 

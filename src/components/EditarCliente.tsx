@@ -355,7 +355,7 @@ const EditarCliente = () => {
                                 </div>
                                 <div className='col-4'>
                                     <label htmlFor="celular" className='form-label'>Complemento</label>
-                                    <input type="text" value={complemento} name='complemento' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                    <input type="text" value={complemento} name='complemento' className={'form-control' + (complementoErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                     <div className="text-danger">{complementoErro}</div>
                                 </div>
 

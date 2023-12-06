@@ -79,9 +79,12 @@ const ListagemCliente = () => {
         async function fetchData() {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/cliente');
-                if (response.data.status == true) {
+                if (response.data.status === true) {
                   
                     setClientes(response.data.data);
+                }
+                else{
+                    setClientes(response.data.message)
                 }
                
 

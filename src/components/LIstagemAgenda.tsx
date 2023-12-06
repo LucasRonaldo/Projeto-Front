@@ -131,13 +131,7 @@ const ListagemAgenda = () => {
                     console.log(response.data.data_hora)
                 }
                 else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Não há nenhum registro no sistema",
-                        footer: '<a href="/cadastro/agenda">Clique aqui para cadastrar</a>'
-                    });
-
+                   
                 }
             } catch (error) {
 
