@@ -37,6 +37,8 @@ const ListagemServico = () => {
                 ).then(function (response) {
                     if (response.data.status == true) {
                         setServicos(response.data.data);
+                    }else{
+                        setServicos([]);
                     }
 
                 }).catch(function (error) {

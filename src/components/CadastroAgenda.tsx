@@ -18,6 +18,7 @@ const CadastroAgenda = () => {
     const [profissional_id, setProfissional_id] = useState<string>("");
     const [data_hora, setDataHora] = useState<string>("");
 
+    const [profissional_idErro, setProfissional_idErro] = useState<string>("");
     const [data_horaErro, setDataHoraErro] = useState<string>("");
 
     const [profissional, setProfissional] = useState<ProfissionalInterface[]>([]);
@@ -26,14 +27,25 @@ const CadastroAgenda = () => {
 
     const cadastrarAgenda = (e: FormEvent) => {
         setDataHoraErro("");
+        
         e.preventDefault();
 
         const dados = {
             profissional_id: profissional_id,
             data_hora: data_hora,
-
-
         }
+
+        if (new Date(data_hora) < new Date()) {
+            setDataHoraErro("Não é possível cadastrar antes da data e hora atual");
+            return;
+          }
+
+          else if (new Date(data_hora).getTime() === new Date().getTime()) {
+            setDataHoraErro("Já existe uma agenda cadastrada para essa data e profissional.");
+            return;
+          }
+
+
         console.log(dados)
         axios.post('http://127.0.0.1:8000/api/cadastrar/agenda', dados,
 
@@ -55,17 +67,14 @@ const CadastroAgenda = () => {
                     window.setTimeout(() => {
                         window.location.href = "/listagem/agenda"
                     }, 3600);
-                   
+
                 }
                 else {
-                    Swal.fire({
-                        title: "Erro",
-                        text: "não foi agendado",
-                        icon: "error",
-                        showConfirmButton: false,
-                        timer: 3000
-                    });
-
+                    if ("data_hora" in response.data.error) {
+                        setDataHoraErro(response.data.error.data_hora[0]);
+                    }
+                   
+                   
                 }
             }).catch(function (error) {
                 console.log(error)
@@ -79,11 +88,14 @@ const CadastroAgenda = () => {
                 const response = await axios.get('http://127.0.0.1:8000/api/all/profissional  ');
                 if (true == response.data.status) {
                     setProfissional(response.data.data)
-                   
+
+                }
+                else {
+                    setProfissional([])
                 }
             } catch (error) {
                 console.log(error);
-               
+
             }
         }
 
@@ -123,24 +135,26 @@ const CadastroAgenda = () => {
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
-                            <h1 className='card-title display-6 '>Cadastro Agenda</h1>
+                            <h1 className='card-title display-6 '>Cadastro de Agenda</h1>
                             <hr />
                             <form onSubmit={cadastrarAgenda} className='row g-3'>
-                                    <div className='col-6'>
-                                        <label htmlFor="nome" className='form-label'>Profissional_Id</label>
-                                        <select name='profissional_id' id='profissional_id '  className={'form-control' + (data_horaErro ? ' border-danger border-2' : '')} required onChange={handleProfissional}  >
-                                            <option value="0">Selecione um Profissional</option>
-                                            {profissional.map(profissional => (
-                                                <option key={profissional.id} value={profissional.id}>
-                                                    {profissional.nome}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
+                                <div className='col-6'>
+                                    <label htmlFor="nome" className='form-label'>Profissional_Id</label>
+                                    <select name='profissional_id' id='profissional_id ' className={'form-control' + (profissional_idErro ? ' border-danger border-2' : '')} required onChange={handleProfissional}  >
+                                        <option value="">Selecione um Profissional</option>
+                                        {profissional.map(profissional => (
+                                            <option key={profissional.id} value={profissional.id}>
+                                                {profissional.nome}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="text-danger">{profissional_idErro}</div>
+                                </div>
 
                                 <div className='col-6'>
                                     <label htmlFor="data_hora" className='form-label' >Data e hora</label>
-                                    <input type="datetime-local" name='data_hora'  className={'form-control' + (data_horaErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                    <input type="datetime-local" name='data_hora' className={'form-control' + (data_horaErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                    <div className="text-danger">{data_horaErro}</div>
                                 </div>
 
 

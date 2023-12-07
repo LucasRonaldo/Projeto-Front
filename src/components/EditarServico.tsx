@@ -138,7 +138,7 @@ const EditarServico = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h5 className='card-title'>Cadastrar Servicos</h5>
+                            <h5 className='card-title'>Editar Servicos</h5>
                             <form onSubmit={atualizarServico} className='row g-3'>
                             <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>

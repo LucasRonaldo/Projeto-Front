@@ -52,7 +52,7 @@ const ListagemAgenda = () => {
             if (response.data.status === true) {
                 setAgenda(response.data.data);
             } else {
-                // Tratar erro caso não encontre dados com essa data
+                setAgenda([]);
             }
         } catch (error) {
             console.log(error);
@@ -128,7 +128,7 @@ const ListagemAgenda = () => {
                 if (response.data.status == true) {
 
                     setAgenda(response.data.data);
-                    console.log(response.data.data_hora)
+                   
                 }
                 else {
                    

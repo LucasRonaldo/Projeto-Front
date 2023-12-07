@@ -40,25 +40,12 @@ const ListagemCliente = () => {
                 ).then(function (response) {
                     if (true === response.data.status) {
 
-                        setClientes(response.data.data)
+                        setClientes(response.data.data);
                     }
                     else {
 
-                        const Toast = Swal.mixin({
-                            toast: true,
-                            position: "top-start",
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.onmouseenter = Swal.stopTimer;
-                                toast.onmouseleave = Swal.resumeTimer;
-                            }
-                        });
-                        Toast.fire({
-                            icon: "error",
-                            title: response.data.message
-                        });
+                        setClientes([]);
+                    
 
 
                     }

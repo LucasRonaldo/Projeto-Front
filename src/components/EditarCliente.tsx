@@ -285,7 +285,7 @@ const EditarCliente = () => {
 
                     <div className='card'>
                         <div className='card-body'>
-                            <h4 className='card-title display-6 '>Atualizar Cliente</h4>
+                            <h4 className='card-title display-6 '>Editar Cliente</h4>
                             <hr />
 
 

@@ -25,9 +25,6 @@ const CadastroServico = () => {
         setDescricaoErro("");
         setDuracaoErro("");
         setPrecoErro("");
-       
-        e.preventDefault();
-
         e.preventDefault();
 
 
@@ -52,7 +49,7 @@ const CadastroServico = () => {
 
                 Swal.fire({
                     title: "Cadastrado",
-                    text: "O cliente foi cadastrado com sucesso",
+                    text: "O serviço foi cadastrado com sucesso",
                     icon: "success",
                     timer: 6000,
                     showConfirmButton: false
@@ -110,29 +107,29 @@ const CadastroServico = () => {
                 <div className='container'>
                     <div className='card'>
                         <div className='card-body'>
-                        <h1 className='card-title display-6 '>Cadastro de Serviços</h1>
-                        <hr />
+                            <h1 className='card-title display-6 '>Cadastro de Serviços</h1>
+                            <hr />
                             <form onSubmit={cadastrarProfissional} className='row g-3'>
                                 <div className='col-6'>
                                     <label htmlFor="nome" className='form-label'>Nome</label>
                                     <input type="text" placeholder='Digite o nome' name='nome' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
-                               <div className="text-danger">{nomeErro}</div>
+                                    <div className="text-danger">{nomeErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="email" className='form-label' >Descrição</label>
                                     <input type="text" placeholder='Digite a descrição' name='descricao' className={'form-control' + (descricaoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
 
-                               <div className="text-danger">{descricaoErro}</div>
+                                    <div className="text-danger">{descricaoErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cpf" className='form-label'>Duração</label>
                                     <input type="text" placeholder='Ex: 12' name='duracao' className={'form-control' + (duracaoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
-                               <div className="text-danger">{duracaoErro}</div>
+                                    <div className="text-danger">{duracaoErro}</div>
                                 </div>
                                 <div className='col-6'>
                                     <label htmlFor="cpf" className='form-label'>Preço</label>
                                     <input type="text" name='preco' placeholder='Ex: 20.00' className={'form-control' + (precoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
-                               <div className="text-danger">{precoErro}</div>
+                                    <div className="text-danger">{precoErro}</div>
                                 </div>
 
                                 <div className='col-12'>

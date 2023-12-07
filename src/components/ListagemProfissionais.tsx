@@ -37,8 +37,10 @@ const ListagemProfissional = () => {
                     }
                 ).then(function (response) {
                     if (true == response.data.status) {
-                        setProfissionais(response.data.data)
+                        setProfissionais(response.data.data);
                         
+                    }else{
+                        setProfissionais([]);
                     }
                 }).catch(function (error) {
                     setError(error)
@@ -60,7 +62,7 @@ const ListagemProfissional = () => {
                 }
                 else {
 
-                   console.log("Nenhum registro no sistema")
+                   console.log([]);
 
                 }
 

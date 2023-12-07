@@ -199,7 +199,7 @@ const CadastroCliente = () => {
 
                 const Toast = Swal.mixin({
                     toast: true,
-                    position: "center-end",
+                    position: "top-end",
                     showConfirmButton: false,
                     timer: 3000,
                     timerProgressBar: true,
@@ -275,71 +275,71 @@ const CadastroCliente = () => {
 
                             <div className='card-body'>
 
-                                <h1 className='card-title display-6 '>Cadastrar Cliente</h1>
+                                <h1 className='card-title display-6 '>Cadastro de Cliente</h1>
                                 <hr />
                                 <form onSubmit={cadastrarCliente} className='row g-3'>
                                     <div className='col-6' >
 
                                         <label htmlFor="nome" className='form-label'>Nome</label>
-                                        <input type="text" name='nome' id='nome' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='nome' id='nome' className={'form-control' + (nomeErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{nomeErro}</div>
                                     </div>
                                     <div className='col-6'>
                                         <label htmlFor="email" className='form-label ' >E-mail</label>
-                                        <input type="email" name='email' className={'form-control' + (emailErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="email" name='email' className={'form-control' + (emailErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{emailErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="cpf" className='form-label'>CPF</label>
-                                        <input type="text" name='cpf' className={'form-control' + (cpfErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='cpf' className={'form-control' + (cpfErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{cpfErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="cpf" className='form-label'>Data de Nascimento</label>
-                                        <input type="date" name='dataNascimento' className={'form-control' + (dataNascimentoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="date" name='dataNascimento' className={'form-control' + (dataNascimentoErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{dataNascimentoErro}</div>
                                     </div>
 
 
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Cep</label>
-                                        <input type="text" name='cep' className={'form-control' + (cepErro ? ' border-danger border-2' : '')} required onBlur={findCep} onChange={handleState} />
+                                        <input type="text" name='cep' className={'form-control' + (cepErro ? ' border-danger border-2' : '')}  onBlur={findCep} onChange={handleState} />
                                         <div className="text-danger">{cepErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="cpf" className='form-label'>Estado</label>
-                                        <input type="text" name='estado' value={estado} className={'form-control' + (estadoErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='estado' value={estado} className={'form-control' + (estadoErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{estadoErro}</div>
                                     </div>
 
                                     <div className='col-4'>
                                         <label htmlFor="cpf" className='form-label'>Cidade</label>
-                                        <input type="text" value={cidade} name='cidade' className={'form-control' + (cidadeErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" value={cidade} name='cidade' className={'form-control' + (cidadeErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{cidadeErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Celular</label>
-                                        <input type="text" name='celular' className={'form-control' + (celularErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='celular' className={'form-control' + (celularErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{celularErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Pais</label>
-                                        <input type="text" name='pais' className={'form-control' + (paisErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='pais' className={'form-control' + (paisErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{paisErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Rua</label>
-                                        <input type="text" name='rua' value={rua} className={'form-control' + (ruaErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='rua' value={rua} className={'form-control' + (ruaErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{ruaErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Numero</label>
-                                        <input type="text" name='numero' className={'form-control' + (numeroErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='numero' className={'form-control' + (numeroErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{numeroErro}</div>
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="celular" className='form-label'>Bairro</label>
-                                        <input type="text" name='bairro' value={bairro} className={'form-control' + (bairroErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="text" name='bairro' value={bairro} className={'form-control' + (bairroErro ? ' border-danger border-2' : '')}  onChange={handleState} />
                                         <div className="text-danger">{bairroErro}</div>
                                     </div>
                                     <div className='col-4'>
@@ -349,7 +349,7 @@ const CadastroCliente = () => {
                                     </div>
                                     <div className='col-4'>
                                         <label htmlFor="password" className='form-label'>Senha</label>
-                                        <input type="password" name='password' className={'form-control' + (passwordErro ? ' border-danger border-2' : '')} required onChange={handleState} />
+                                        <input type="password" name='password' className={'form-control' + (passwordErro ? ' border-danger border-2' : '')}  onChange={handleState} />
 
                                         <div className="text-danger">{passwordErro}</div></div>
                                     <div className='col-12 '>
